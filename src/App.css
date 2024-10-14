@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,300&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+.App {
+  padding: 1em;
+}
+
+.no-items {
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.no-items img {
+  width: 300px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  margin-bottom: 40px;
+}
+
+.item-card {
+  background: linear-gradient(135deg, #5a9bd4, #9c5bee);
+  border-radius: 15px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.3s ease;
+  min-height: 200px;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  margin: 10px; 
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+}
+
+.item-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Header Title */
+.item-card-header h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Status Tag (like "Consumable", "Non-Consumable") */
+.item-card-header .item-status {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+/* Flexbox for Item Info (details) */
+.item-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Item Information Text */
+.item-card-info p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Flexbox for Footer */
+.item-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns buttons to the right */
+  gap: 10px;
+  /* Space between buttons */
+}
+
+/* Edit Button */
+.item-card-footer button {
+  background-color: #ff7b7b;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.item-card-footer button:hover {
+  background-color: #ff5252;
+}
+
+/* Add New Item Button */
+.add-item-btn {
+  color: black;
+  border: 1px dashed;
+  padding: 10px 10px;
+  width: 200px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-family: 'poppins', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-item-btn img {
+  width: 30px;
+}
+
+.add-item-btn:hover {
+  background-color: #4e9ef5;
+}
+
+/* Modal Styling (unchanged) */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+}
+
+.modal form label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.modal form input,
+.modal form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal form button[type="submit"] {
+  background-color: #5a9bd4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal form button[type="submit"]:hover {
+  background-color: #477ab2;
+}
+
+/* Close button for modal (unchanged) */
+.close-btn {
+  background-color: transparent;
+  color: #999;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* App.css */
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+/* App.css */
+.item-card {
+  position: relative;
+  /* Make the item card a positioning context */
+  border: 1px solid #ccc;
+  /* Optional styling */
+  border-radius: 8px;
+  /* Optional styling */
+  padding: 16px;
+  /* Optional styling */
+  margin: 10px;
+  /* Optional styling */
+  background-color: #fff;
+  /* Optional styling */
+}
+
+.delete-icon {
+  position: absolute;
+  /* Position the icon absolutely */
+  top: 10px;
+  /* Distance from the top */
+  right: 10px;
+  /* Distance from the right */
+  cursor: pointer;
+  /* Pointer cursor for the delete icon */
+  color: red;
+  /* Change color to indicate delete action */
+  font-size: 1.5em;
+  /* Size of the icon */
+}
+
+.delete-icon:hover {
+  color: darkred;
+  /* Darker color on hover */
+}
