@@ -9,14 +9,18 @@ function Dashboard() {
     return storedInventory ? JSON.parse(storedInventory) : [];
   });
   const [numberOfInventories, setNumberOfInventories] = useState(0);
+  const [remainingInventories, setRemainingInventories] = useState(0);
   const [lowStocks, setLowStocks] = useState([]);
 
   useEffect(() => {
-    let num = 0;
+    let total = 0;
+    let remaining = 0;
     inventory.forEach((item) => {
-      num += Number(item.itemsBought);
+      total += Number(item.itemsBought);
+      remaining += Number(item.itemsRemaining);
     });
-    setNumberOfInventories(num);
+    setNumberOfInventories(total);
+    setRemainingInventories(remaining);
   }, [inventory]);
 
   useEffect(() => {
@@ -33,22 +37,30 @@ function Dashboard() {
           <img className='inventory-pic' src={images.inventory} alt="Inventory Icon" />
           <div className='inventory-value'>{numberOfInventories}</div>
         </div>
-        <div className="low-stock-widget">
+        <div className="inventory-widget">
+          <div className='inventory-header'>Remaining Inventory</div>
+          <img className='inventory-pic' src={images.inventory} alt="Inventory Icon" />
+          <div className='inventory-value'>{remainingInventories}</div>
+        </div>
+      </div>
+      <div className="low-stock-widget">
           <div>Low Stocks</div>
           <img className='low-pic' src={images.low} alt="Low Stock Icon" />
+          <div className='stock head'>
+            <div className='stock-prop'>Stock</div>
+            <div className='stock-value'>Remaining</div>
+          </div>
           {lowStocks.length > 0 ? (
             lowStocks.map((stock, index) => (
-              <div key={index}>
-                <div>{stock.name}</div>
-                <div>{stock.itemsRemaining}</div>
+              <div className='stock details' key={index}>
+                <div className='stock-prop'>{stock.name}</div>
+                <div className='stock-value'>{stock.itemsRemaining}</div>
               </div>
             ))
           ) : (
             <div>Stocks are Enough</div>
           )}
         </div>
-        <div className="widget">Recent Orders</div>
-      </div>
     </div>
   );
 }

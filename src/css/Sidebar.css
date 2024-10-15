@@ -1,37 +1,22 @@
-/* @media (min-width: 768px) {
 
-  .links {
-    display: block;
-    flex-direction: column;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 200px;
-    height: 100%;
-    background: white;
-    padding: 1rem;
-    border-right: 1px solid rgba(0, 0, 0, 0.192);
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .side-links {
-    margin-top: 5em;
-  }
-
-  .side-link {
-    width: 100%;
-    border-radius: 10px;
-  }
-
-  .side-link.active {
-    background-color: #999;
-  }
-
-  .side-link:hover {
-    background-color: #ccc;
-    border-radius: 10px;
-  }
-} */
-
+.notification {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.575);
+}
+.notification img {
+  width: 30px;
+}
 li {
   list-style: none;
 }
@@ -59,7 +44,7 @@ ul {
 
 .links {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     height: 100vh;
     left: 0;
@@ -103,13 +88,6 @@ ul {
   .app-container {
     padding-left: 0;
   }
-
-  /***** NavBar.css *****/
-
- .navbar {
-    background-color: var(--secondary-bg);
-    border-bottom: 1px solid var(--border-color);
-  }
   
   .nav {
     display: flex;
@@ -118,7 +96,15 @@ ul {
     background: transparent;
     color: white;
     padding: 1.5rem;
+    width: 100%;
     position: relative;
+    z-index: 999;
+  }
+
+  .nav.bg {
+    background-color: rgb(50, 50, 204);
+    position: fixed;
+    margin-top: -15px;
   }
   
   .menu-icon {
@@ -130,8 +116,15 @@ ul {
     justify-content: space-between;
     position: absolute;
     top: 50%;
-    right: 1rem;
+    right: 3rem;
     transform: translateY(-50%);
+  }
+
+  .bg .menu-icon {
+    position: fixed;
+    right: 1rem;
+    top: 25px;
+
   }
   
   .icon-bar {
@@ -141,6 +134,10 @@ ul {
     margin: 0;
     background-color: #333;
     transition: all 0.4s ease;
+  }
+
+  .bg .icon-bar {
+    background-color: wheat;
   }
   
   .rotate {
@@ -179,7 +176,7 @@ ul {
     position: relative;
     font-size: 1em;
     padding: 0.5em;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.192);
   }
   
   .link {
@@ -193,8 +190,8 @@ ul {
   
   .links.open {
     display: block;
-    position: absolute;
-    top: 40px;
+    position: fixed;
+    top: 50px;
     height: 100vh;
     left: 53%;
     background: rgb(50, 50, 204);

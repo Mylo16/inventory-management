@@ -8,6 +8,28 @@ body {
   width: 100%;
 }
 
+.header {
+  color: rgb(22, 22, 78);
+  margin-top: 1em;
+}
+
+.notification-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.336);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.notification-modal-content {
+  background-color: white;
+}
+
 .no-items {
   width: fit-content;
   margin: auto;
@@ -50,12 +72,13 @@ body {
   margin-bottom: 10px;
   font-size: 20px;
   background-color: rgba(41, 134, 240, 0.932);
+  color: wheat;
   border-radius: 15px 15px 0 0;
   padding: 16px;
 }
 
 .item-info {
-  color: rgb(16, 16, 77);
+  color: rgb(17, 17, 92);
   padding: 0 16px;
   margin-bottom: 1em;
 }
@@ -76,6 +99,7 @@ body {
   margin: 1em;
   padding: 0.5em;
   background-color: rgba(41, 134, 240, 0.932);
+  color: wheat;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -165,6 +189,7 @@ body {
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -230,7 +255,6 @@ body {
   background-color: #477ab2;
 }
 
-/* Close button for modal (unchanged) */
 .close-btn {
   background-color: transparent;
   color: #999;
@@ -242,7 +266,6 @@ body {
   cursor: pointer;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -268,20 +291,13 @@ body {
 
 .delete-icon {
   position: absolute;
-  /* Position the icon absolutely */
   top: 10px;
-  /* Distance from the top */
   right: 10px;
-  /* Distance from the right */
   cursor: pointer;
-  /* Pointer cursor for the delete icon */
   color: red;
-  /* Change color to indicate delete action */
   font-size: 1.5em;
-  /* Size of the icon */
 }
 
 .delete-icon:hover {
   color: darkred;
-  /* Darker color on hover */
 }

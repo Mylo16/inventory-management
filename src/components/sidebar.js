@@ -22,11 +22,11 @@ function Sidebar() {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    // if (isOpen) {
+    //   document.querySelector('.app-container').style.overflow = "hidden";
+    // } else {
+    //   document.querySelector('.app-container').style.overflow = "auto";
+    // }
 
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -35,7 +35,7 @@ function Sidebar() {
   }, [isOpen]);
 
   return (
-    <nav className='nav'>
+    <nav className={`nav ${isOpen ? 'bg' : ''}`}>
     <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
       <span className={`icon-bar ${isOpen ? 'rotate' : ''}`}></span>
       <span className={`icon-bar ${isOpen ? 'fade-out' : ''}`}></span>
@@ -48,7 +48,7 @@ function Sidebar() {
           <Link to="/">Dashboard</Link>
         </li>
         <li className={`side-link ${activeLink === 1 ? 'active' : ''}`} onClick={() => handleLinkClicked(1)}>
-          <Link to="/inventory">Inventoy</Link>
+          <Link to="/inventory">Inventory</Link>
         </li>
         <li className={`side-link ${activeLink === 2 ? 'active' : ''}`} onClick={() => handleLinkClicked(2)}>
           <Link to="/reports">Reports</Link>

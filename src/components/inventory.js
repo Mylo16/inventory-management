@@ -16,6 +16,7 @@ function InventoryList() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewItemFormOpen, setIsNewItemFormOpen] = useState(false);
+  
 
 
   const handleEditClick = (item) => {
@@ -40,13 +41,7 @@ function InventoryList() {
     localStorage.setItem("inventory", JSON.stringify(updatedInventory));
   };
 
-  useEffect(() => {
-    inventory.forEach((item) => {
-      if (item.itemsRemaining <= item.reorderLevel) {
-        alert(`${item.name} is running low. Consider ordering more.`);
-      }
-    });
-  }, [inventory]);
+  
 
   // Handle adding a new item
   const handleAddNewItem = (newItem) => {
@@ -61,7 +56,6 @@ function InventoryList() {
 
   return (
     <div className="App">
-       <h1 className="header">Inventory</h1>
        <div className="card-container">
          {inventory.length === 0 ? (
           <div className="no-items">
@@ -73,7 +67,7 @@ function InventoryList() {
             <ItemCard 
               key={item.id} 
               item={item} 
-              onEditClick={handleEditClick} 
+              onEditClick={handleEditClick}
               onDeleteClick={handleDelete}
             />
           ))
