@@ -11,6 +11,16 @@ body {
 .header {
   color: rgb(22, 22, 78);
   margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.header-title {
+  margin-left: 1em;
+  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .notification-modal {
@@ -26,8 +36,57 @@ body {
   z-index: 999;
 }
 
+.ok-btn {
+  background-color: #4e9ef5;
+  border: none;
+  margin-top: 10px;
+  color: wheat;
+  padding: 5px 8px;
+}
+
 .notification-modal-content {
   background-color: white;
+  border-radius: 20px;
+  padding: 1em;
+  width: 300px;
+}
+
+.warning {
+  width: 30px;
+}
+
+.content-ctn {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.content-ctn::-webkit-scrollbar {
+  height: 6px;
+}
+
+.content-ctn::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.content-ctn::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.content-sub-ctn {
+  display: flex;
+  width: fit-content;
+  padding-right: 100px;
+  gap: 130px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.stock-warn {
+  display: flex;
+  align-items: center;
+  width: 200px;
 }
 
 .no-items {
@@ -72,6 +131,7 @@ body {
   margin-bottom: 10px;
   font-size: 20px;
   background-color: rgba(41, 134, 240, 0.932);
+  background-color: #DF1EFF;
   color: wheat;
   border-radius: 15px 15px 0 0;
   padding: 16px;
@@ -97,11 +157,13 @@ body {
   justify-content: center;
   align-self: flex-end;
   margin: 1em;
-  padding: 0.5em;
-  background-color: rgba(41, 134, 240, 0.932);
-  color: wheat;
+  padding: 0.2em;
+  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
+  color: rgb(8, 8, 63);
   border: none;
   cursor: pointer;
+  font-weight: 500;
+  font-family: 'poppins', sans-serif;
   border-radius: 5px;
 }
 

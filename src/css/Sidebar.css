@@ -14,9 +14,28 @@
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.575);
 }
+
+.notification.highlight {
+  border: 1px solid red;
+  animation: notifyAnim 2s infinite ease-in-out;
+}
+
+@keyframes notifyAnim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .notification img {
   width: 30px;
 }
+
 li {
   list-style: none;
 }
@@ -26,8 +45,8 @@ a {
 }
 
 ul {
-    padding-inline-start: 0;
-    margin-block-start: 2em;
+  padding-inline-start: 0;
+  margin-block-start: 2.5em;
 }
 
 .app-container {
@@ -48,7 +67,8 @@ ul {
     top: 0;
     height: 100vh;
     left: 0;
-    background: rgb(50, 50, 204);
+    /* background: rgb(50, 50, 204); */
+    background: #DF1EFF;
     width: 250px;
     z-index: 999;
   }
@@ -58,19 +78,16 @@ ul {
     text-decoration: none;
     padding: 0.5rem 1rem;
     display: block;
+    margin-bottom: 1em;
   }
   
   .side-link:hover {
-    background: #ccc;
+    background: #cccccc41;
   }
 
   .side-link.active {
     background-color: rgb(10, 10, 66);
   }
-
-/* .sidebar.hidden {
-  transform: translateX(-100%);
-} */
 
 /* Trigram for mobile */
 .mobile-nav .trigram {

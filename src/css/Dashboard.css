@@ -25,6 +25,8 @@
 
 .low-pic {
   width: 300px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
 }
 
 .inventory-header {
@@ -74,7 +76,8 @@
 
 .stock.head {
   background-color: rgb(50, 50, 204);
-  color: wheat;
+  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
+  color: rgb(20, 20, 85);
   justify-content: center;
 }
 

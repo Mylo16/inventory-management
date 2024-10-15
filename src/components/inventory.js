@@ -5,6 +5,7 @@ import ItemCard from "./ItemCard";
 import EditFormModal from "./EditFormModal";
 import NewItemForm from "./NewItemForm";
 import images from '../utils/images';
+import Modal from './modal';
 
 function InventoryList() {
   const [inventory, setInventory] = useState(() => {
@@ -16,6 +17,8 @@ function InventoryList() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewItemFormOpen, setIsNewItemFormOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [updatedItem, setUpdatedItem] = useState('');
   
 
 
@@ -33,6 +36,11 @@ function InventoryList() {
     setInventory(updatedInventory);
     localStorage.setItem("inventory", JSON.stringify(updatedInventory));
     setIsModalOpen(false);
+    // window.location.reload();
+    if(updatedItem.itemsRemaining <= updatedItem.reorderLevel) {
+      setUpdatedItem(updatedItem);
+      setShowNotification(true);
+    }
   };
 
   const handleDelete = (itemId) => {
@@ -40,6 +48,10 @@ function InventoryList() {
     setInventory(updatedInventory);
     localStorage.setItem("inventory", JSON.stringify(updatedInventory));
   };
+
+  const closeModal = () => {
+    setShowNotification(false);
+  }
 
   
 
@@ -57,6 +69,8 @@ function InventoryList() {
   return (
     <div className="App">
        <div className="card-container">
+         {showNotification && (<Modal item={updatedItem} show={true} quitModal={closeModal}/>)}
+
          {inventory.length === 0 ? (
           <div className="no-items">
             <img src={images.addPic} alt="add-picture"/>
