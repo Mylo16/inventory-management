@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 
-function NewItemForm({ onSave, onClose }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    type: "consumable",
-    itemsBought: 0,
-    itemsUsed: 0,
-    itemsRemaining: 0,
-    itemBoughtDate: "",
-    itemUsedDate: "",
-  });
+function EditFormModal({ item, onSave, onClose }) {
+  const [formData, setFormData] = useState({ ...item });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +34,7 @@ function NewItemForm({ onSave, onClose }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Add New Item</h2>
+        <h2>Edit Item</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Name:
@@ -54,6 +46,7 @@ function NewItemForm({ onSave, onClose }) {
               required
             />
           </label>
+          <div className="grouped-labels">
           <label>
             Type:
             <select
@@ -76,6 +69,8 @@ function NewItemForm({ onSave, onClose }) {
               required
             />
           </label>
+          </div>
+          <div className="grouped-labels">
           <label>
             Items Used:
             <input
@@ -86,8 +81,19 @@ function NewItemForm({ onSave, onClose }) {
               required
             />
           </label>
+          <label>
+            Reorder Level:
+            <input
+              type="number"
+              name="reorderLevel"
+              value={formData.reorderLevel}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          </div>
           <p>Items Remaining: {formData.itemsRemaining}</p>
-          <button type="submit">Add Item</button>
+          <button type="submit">Save</button>
         </form>
         <button className="close-btn" onClick={onClose}>
           Close
@@ -97,4 +103,4 @@ function NewItemForm({ onSave, onClose }) {
   );
 }
 
-export default NewItemForm;
+export default EditFormModal;

@@ -1,0 +1,36 @@
+.dashboard-widgets {
+  display: flex;
+}
+.inventory-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  border-radius: 20px;
+  border: solid 1px black;
+  width: 50%;
+  margin: auto;
+}
+
+.inventory-widget img {
+  width: 200px;
+}
+
+.low-pic {
+  width: 300px;
+}
+
+.inventory-header {
+  font-size: 18px;
+}
+
+.inventory-value {
+  font-size: 3rem;
+}
+
+.low-stock-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}

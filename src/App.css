@@ -5,16 +5,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
   width: 100%;
-  overflow: hidden;
-}
-
-
-
-.App {
-  padding: 1em;
 }
 
 .no-items {
@@ -29,25 +20,24 @@ body {
 }
 
 .card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 20px;
-  margin-bottom: 40px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .item-card {
-  background: linear-gradient(135deg, #5a9bd4, #9c5bee);
+  /* background: linear-gradient(180deg, #9c5bee, #5a9bd4); */
   border-radius: 15px;
-  padding: 16px;
   color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
   transition: transform 0.3s ease;
   min-height: 200px;
-  max-width: 400px;
+  width: 330px;
   border: 1px solid #ccc;
   margin: 10px; 
 }
@@ -57,16 +47,38 @@ body {
 }
 
 .item-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 10px;
+  font-size: 20px;
+  background-color: rgba(41, 134, 240, 0.932);
+  border-radius: 15px 15px 0 0;
+  padding: 16px;
 }
 
-/* Header Title */
-.item-card-header h3 {
-  font-size: 1.5rem;
-  margin: 0;
+.item-info {
+  color: rgb(16, 16, 77);
+  padding: 0 16px;
+  margin-bottom: 1em;
+}
+
+.item-info-row {
+  display: flex;
+}
+
+.property {
+  width: 200px;
+}
+
+.edit-btn {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+  margin: 1em;
+  padding: 0.5em;
+  background-color: rgba(41, 134, 240, 0.932);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 /* Status Tag (like "Consumable", "Non-Consumable") */
@@ -171,14 +183,31 @@ body {
 
 .modal form label {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: 10px;
   color: #333;
 }
 
+.grouped-labels {
+  display: flex;
+  gap: 2em;
+}
+
+.grouped-labels label {
+  width: 224px;
+}
+
+.modal form .grouped-labels input {
+  width: 200px;
+}
+
+.modal form .grouped-labels select {
+  width: 224px;
+}
+
 .modal form input,
 .modal form select {
-  width: 100%;
+  width: 92%;
   padding: 10px;
   margin-bottom: 20px;
   border: 2px solid #ccc;
@@ -235,22 +264,6 @@ body {
 
 .delete-btn:hover {
   background-color: darkred;
-}
-
-/* App.css */
-.item-card {
-  position: relative;
-  /* Make the item card a positioning context */
-  border: 1px solid #ccc;
-  /* Optional styling */
-  border-radius: 8px;
-  /* Optional styling */
-  padding: 16px;
-  /* Optional styling */
-  margin: 10px;
-  /* Optional styling */
-  background-color: #fff;
-  /* Optional styling */
 }
 
 .delete-icon {

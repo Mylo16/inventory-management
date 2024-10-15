@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 
-function EditFormModal({ item, onSave, onClose }) {
-  const [formData, setFormData] = useState({ ...item });
+function NewItemForm({ onSave, onClose }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "consumable",
+    itemsBought: 0,
+    itemsUsed: 0,
+    itemsRemaining: 0,
+    itemBoughtDate: "",
+    itemUsedDate: "",
+    reorderLevel: 10,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
       let updatedData = { ...prev, [name]: value };
 
-      // Update the remaining items automatically
       if (name === "itemsBought" || name === "itemsUsed") {
         updatedData.itemsRemaining =
           Number(updatedData.itemsBought) - Number(updatedData.itemsUsed);
       }
 
-      // Set the date when items are bought or used
       if (name === "itemsBought") {
         updatedData.itemBoughtDate = new Date().toLocaleString();
       }
@@ -34,7 +41,7 @@ function EditFormModal({ item, onSave, onClose }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Edit Item</h2>
+        <h2>Add New Item</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Name:
@@ -78,8 +85,18 @@ function EditFormModal({ item, onSave, onClose }) {
               required
             />
           </label>
+          <label>
+            Reorder Level:
+            <input
+              type="number"
+              name="reorderLevel"
+              value={formData.reorderLevel}
+              onChange={handleChange}
+              required
+            />
+          </label>
           <p>Items Remaining: {formData.itemsRemaining}</p>
-          <button type="submit">Save</button>
+          <button type="submit">Add Item</button>
         </form>
         <button className="close-btn" onClick={onClose}>
           Close
@@ -89,4 +106,4 @@ function EditFormModal({ item, onSave, onClose }) {
   );
 }
 
-export default EditFormModal;
+export default NewItemForm;
