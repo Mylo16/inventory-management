@@ -92,3 +92,29 @@
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 768px) {
+  .dashboard {
+    width: 100%;
+  }
+  .dashboard-widgets {
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    width: 90%;
+    margin: 2em auto;
+  }
+
+  .inventory-widget {
+    width: 100%;
+  }
+
+  .low-stock-widget {
+    width: 85%;
+  }
+
+  .dashboard-header {
+    text-align: center;
+    color: #190c47;
+  }
+}

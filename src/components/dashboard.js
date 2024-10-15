@@ -30,7 +30,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h2>Dashboard Overview</h2>
+      <h2 className='dashboard-header'>Dashboard Overview</h2>
       <div className="dashboard-widgets">
         <div className="inventory-widget">
           <div className='inventory-header'>Total Inventory</div>

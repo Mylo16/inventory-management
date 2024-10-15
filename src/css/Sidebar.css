@@ -50,7 +50,6 @@ ul {
 }
 
 .app-container {
-  padding: 1em;
   padding-left: 300px;
 }
 
@@ -112,14 +111,14 @@ ul {
     align-items: center;
     background: transparent;
     color: white;
-    padding: 1.5rem;
+    padding: 1.5rem 0;
     width: 100%;
     position: relative;
     z-index: 999;
   }
 
   .nav.bg {
-    background-color: rgb(50, 50, 204);
+    background-color: #DF1EFF;
     position: fixed;
     margin-top: -15px;
   }
@@ -133,7 +132,7 @@ ul {
     justify-content: space-between;
     position: absolute;
     top: 50%;
-    right: 3rem;
+    right: 1rem;
     transform: translateY(-50%);
   }
 
@@ -211,14 +210,14 @@ ul {
     top: 50px;
     height: 100vh;
     left: 53%;
-    background: rgb(50, 50, 204);
+    background: #DF1EFF;
     width: 50%;
     z-index: 999;
     transition: transform 0.3s ease;
   }
   
   .links a {
-    color: #01d371;
+    color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
     display: block;
