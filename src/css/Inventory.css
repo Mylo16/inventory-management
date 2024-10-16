@@ -150,17 +150,9 @@
 
 /* Modal Styling (unchanged) */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.3s ease-in-out;
-  z-index: 1000;
 }
 
 .modal-content {
@@ -280,6 +272,34 @@
 .delete-icon:hover {
   color: darkred;
 }
+
+.styled-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.styled-table tr:hover {
+  background-color: #ddd;
+}
+
 
 @media (max-width: 768px) {
     .grouped-labels {

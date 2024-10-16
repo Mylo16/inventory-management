@@ -16,17 +16,15 @@ function InventoryList() {
   });
 
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNewItemFormOpen, setIsNewItemFormOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [updatedItem, setUpdatedItem] = useState('');
-  
+  const [isPurchase, setIsPurchase] = useState(false);
+  const data = [
+    { col1: 'Row 1 Col 1', col2: 'Row 1 Col 2', col3: 'Row 1 Col 3', col4: 'Row 1 Col 4' },
+    { col1: 'Row 2 Col 1', col2: 'Row 2 Col 2', col3: 'Row 2 Col 3', col4: 'Row 2 Col 4' },
+    { col1: 'Row 3 Col 1', col2: 'Row 3 Col 2', col3: 'Row 3 Col 3', col4: 'Row 3 Col 4' },
+  ];
 
-
-  const handleEditClick = (item) => {
-    setSelectedItem(item);
-    setIsModalOpen(true);
-  };
 
   const handleSave = (updatedItem) => {
     const updatedInventory = inventory.map((item) =>
@@ -36,8 +34,6 @@ function InventoryList() {
     );
     setInventory(updatedInventory);
     localStorage.setItem("inventory", JSON.stringify(updatedInventory));
-    setIsModalOpen(false);
-    // window.location.reload();
     if(updatedItem.itemsRemaining <= updatedItem.reorderLevel) {
       setUpdatedItem(updatedItem);
       setShowNotification(true);
@@ -50,11 +46,9 @@ function InventoryList() {
     localStorage.setItem("inventory", JSON.stringify(updatedInventory));
   };
 
-  const closeModal = () => {
-    setShowNotification(false);
-  }
+  const handleDistributeItem = (newItem) => {
 
-  
+  }
 
   // Handle adding a new item
   const handleAddNewItem = (newItem) => {
@@ -64,14 +58,13 @@ function InventoryList() {
     ];
     setInventory(newInventory);
     localStorage.setItem("inventory", JSON.stringify(newInventory));
-    setIsNewItemFormOpen(false);
   };
 
   return (
     <div className="App">
       <Header header={'Inventory Overview'}/>
 
-      <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
+      {/* <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
         <img src={images.add} alt="add" />
         <div>Add Inventory</div>
       </div>
@@ -93,22 +86,66 @@ function InventoryList() {
             />
           ))
         )}
+      </div> */}
+      <div className='toggle-stn-ctn'>
+        <div onClick={() => setIsPurchase(true)} className={`purchase-stn ${isPurchase ? 'highlight': ''}`}>Purchase</div>
+        <div onClick={() => setIsPurchase(false)} className='distribution-stn'>Distribution</div>
       </div>
+      {isPurchase ? (
+        <>
+          <table className="styled-table">
+        <thead>
+          <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.col1}</td>
+              <td>{row.col2}</td>
+              <td>{row.col3}</td>
+              <td>{row.col4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-      {isModalOpen && (
-        <EditFormModal
-          item={selectedItem}
-          onSave={handleSave}
-          onClose={() => setIsModalOpen(false)}
-        />
+      <NewItemForm
+        onSave={handleAddNewItem}
+      />
+      </>
+      ):(
+        <>
+        <table className="styled-table">
+        <thead>
+          <tr>
+            <th>Column A</th>
+            <th>Column B</th>
+            <th>Column C</th>
+            <th>Column D</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.col1}</td>
+              <td>{row.col2}</td>
+              <td>{row.col3}</td>
+              <td>{row.col4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <NewItemForm
+        onSave={handleDistributeItem}
+      />
+      </>
       )}
-
-      {isNewItemFormOpen && (
-        <NewItemForm
-          onSave={handleAddNewItem}
-          onClose={() => setIsNewItemFormOpen(false)}
-        />
-      )}
+      
       
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from "react-select";
 
 function NewItemForm({ onSave, onClose }) {
   const [formData, setFormData] = useState({
@@ -11,6 +12,22 @@ function NewItemForm({ onSave, onClose }) {
     itemUsedDate: "",
     reorderLevel: 10,
   });
+
+  const inventoryItems = [
+    { value: 'item1', label: 'Inventory Item 1' },
+    { value: 'item2', label: 'Inventory Item 2' },
+    { value: 'item3', label: 'Inventory Item 3' },
+    { value: 'item4', label: 'Inventory Item 4' },
+  ];
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleInventorySelect = (selectedOption) => {
+    setSelectedItem(selectedOption);
+    setFormData((prev) => {
+      return {...prev, name: selectedOption.value}
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,14 +60,15 @@ function NewItemForm({ onSave, onClose }) {
       <div className="modal-content">
         <div className="new-item-header">Add New Item</div>
         <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
+          <label htmlFor="inventory-select">
+            Select Inventory Item:
+            <Select
+              id="inventory-select"
+              value={selectedItem}
+              onChange={handleInventorySelect}
+              options={inventoryItems}
+              isSearchable
+              placeholder="Search for an item..."
             />
           </label>
           <label>
@@ -77,16 +95,6 @@ function NewItemForm({ onSave, onClose }) {
             />
           </label>
           <label>
-            Items Used:
-            <input
-              type="number"
-              name="itemsUsed"
-              value={formData.itemsUsed}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
             Reorder Level:
             <input
               type="number"
@@ -96,12 +104,8 @@ function NewItemForm({ onSave, onClose }) {
               required
             />
           </label>
-          <p>Items Remaining: {formData.itemsRemaining}</p>
           <button type="submit">Add Item</button>
         </form>
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
       </div>
     </div>
   );
