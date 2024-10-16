@@ -16,10 +16,10 @@ function EditFormModal({ item, onSave, onClose }) {
 
       // Set the date when items are bought or used
       if (name === "itemsBought") {
-        updatedData.itemBoughtDate = new Date().toLocaleString();
+        updatedData.itemBoughtDate = new Date().toISOString();
       }
       if (name === "itemsUsed") {
-        updatedData.itemUsedDate = new Date().toLocaleString();
+        updatedData.itemUsedDate = new Date().toISOString();
       }
 
       return updatedData;
