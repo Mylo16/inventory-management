@@ -4,11 +4,11 @@
   left: 0;
   bottom: 0;
   width: 250px;
-  background-color: rgba(9, 9, 58, 0.192);
+  background-color: rgba(9, 9, 58, 0.342);
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: rgb(17, 8, 66);
+  color: wheat;
   font-size: 15px;
 }
 

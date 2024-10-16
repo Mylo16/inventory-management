@@ -6,9 +6,11 @@ import low from '../asset/low-removebg-preview.png';
 import notification from '../asset/notification.png';
 import warning from '../asset/warning.png';
 import noData from '../asset/No Data.mp4';
+import logo from '../asset/logo.png';
 
 const images = {
   deleteBtn,
+  logo,
   warning,
   notification,
   noData,

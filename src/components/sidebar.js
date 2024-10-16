@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Sidebar.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import images from '../utils/images';
 
 function Sidebar() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function Sidebar() {
 
   return (
     <nav className={`nav ${isOpen ? 'bg' : ''}`}>
+    <div className='logo mobile'><img src={images.logo}/></div>
     <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
       <span className={`icon-bar ${isOpen ? 'rotate' : ''}`}></span>
       <span className={`icon-bar ${isOpen ? 'fade-out' : ''}`}></span>
@@ -43,6 +45,7 @@ function Sidebar() {
     </div>
     
       <div className={`links ${isOpen ? 'open' : ''}`}>
+      <div className='logo'><img src={images.logo}/></div>
       <ul className='side-links'>
         <li className={`side-link ${activeLink === 0 ? 'active' : ''}`} onClick={() => handleLinkClicked(0)}>
           <Link to="/">Dashboard</Link>

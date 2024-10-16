@@ -3,7 +3,7 @@ import '../css/Header.css';
 import images from '../utils/images';
 import Modal from './modal';
 
-function Header() {
+function Header({ header }) {
   const [inventory, setInventory] = useState(() => {
     const storedInventory = localStorage.getItem("inventory");
     return storedInventory ? JSON.parse(storedInventory) : [];
@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <header className="header">
-      <h1 className='header-title'>E-Stock Management</h1>
+      <h1 className='header-title'>{header}</h1>
       <div onClick={() => {setShowLowStock(!showLowStock); setHighlight(false)}} className={`notification ${highlight ? 'highlight':''}`}>
         <img src={images.notification} alt='notification-bell'/>
       </div>

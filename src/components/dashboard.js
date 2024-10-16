@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Dashboard.css';
 import images from '../utils/images';
+import Header from './header';
 
 function Dashboard() {
   const [inventory, setInventory] = useState(() => {
@@ -29,8 +30,9 @@ function Dashboard() {
   }, [inventory]);
 
   return (
+    <>
+    <Header header={'Dashboard Overview'}/>
     <div className="dashboard">
-      <h2 className='dashboard-header'>Dashboard Overview</h2>
       <div className="dashboard-widgets">
         <div className="inventory-widget">
           <div className='inventory-header'>Total Inventory</div>
@@ -62,6 +64,7 @@ function Dashboard() {
           )}
         </div>
     </div>
+    </>
   );
 }
 

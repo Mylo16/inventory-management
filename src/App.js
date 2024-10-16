@@ -18,7 +18,6 @@ function App() {
     <Router>
       <div className="app-container">
         <Sidebar />
-        <Header />
         <div className="content-container">
           <main className="main-content">
             <Routes>

@@ -1,8 +1,10 @@
 import images from "../utils/images";
+import Header from "./header";
 
 function Settings() {
   return(
     <>
+      <Header header={'Settings'} />
       <h1 className="no-content">No Content Yet</h1>
       <div className="video-container">
       <video autoPlay loop muted className="background-video">

@@ -62,6 +62,19 @@ ul {
   display: none;
 }
 
+.logo.mobile {
+  display: none;
+}
+
+.logo {
+  background-color: white;
+  padding: 0 0.5em;
+}
+
+.logo img {
+  width: 200px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .app-container {
@@ -69,6 +82,16 @@ ul {
     position: relative;
     padding-bottom: 200px;
     min-height: 75vh;
+  }
+
+  .logo {
+    display: none;
+    position: absolute;
+  }
+
+  .logo.mobile {
+    display: block;
+    background-color: transparent;
   }
   
   .nav {

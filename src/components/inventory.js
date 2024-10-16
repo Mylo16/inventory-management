@@ -6,6 +6,7 @@ import EditFormModal from "./EditFormModal";
 import NewItemForm from "./NewItemForm";
 import images from '../utils/images';
 import Modal from './modal';
+import Header from './header';
 
 function InventoryList() {
   const [inventory, setInventory] = useState(() => {
@@ -68,6 +69,8 @@ function InventoryList() {
 
   return (
     <div className="App">
+      <Header header={'Inventory Overview'}/>
+
       <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
         <img src={images.add} alt="add" />
         <div>Add Inventory</div>
