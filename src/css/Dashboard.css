@@ -29,7 +29,8 @@
   background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
 }
 
-.inventory-header {
+.inventory-header,
+.low-stock-header {
   font-size: 18px;
 }
 

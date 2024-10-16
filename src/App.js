@@ -6,6 +6,7 @@ import Header from './components/header';
 import Sidebar from './components/sidebar';
 import Dashboard from "./components/dashboard";
 import InventoryList from "./components/inventory";
+import Footer from "./components/footer";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
             </Routes>
           </main>
         </div>
+        <Footer />
       </div>
     </Router>
   );

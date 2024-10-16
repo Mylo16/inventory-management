@@ -68,6 +68,10 @@ function InventoryList() {
 
   return (
     <div className="App">
+      <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
+        <img src={images.add} alt="add" />
+        <div>Add Inventory</div>
+      </div>
        <div className="card-container">
          {showNotification && (<Modal item={updatedItem} show={true} quitModal={closeModal}/>)}
 
@@ -102,10 +106,7 @@ function InventoryList() {
           onClose={() => setIsNewItemFormOpen(false)}
         />
       )}
-      <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
-        <img src={images.add} alt="add" />
-        <div>Add Inventory</div>
-      </div>
+      
     </div>
   );
 }

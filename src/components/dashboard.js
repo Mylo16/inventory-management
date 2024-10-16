@@ -44,7 +44,7 @@ function Dashboard() {
         </div>
       </div>
       <div className="low-stock-widget">
-          <div>Low Stocks</div>
+          <div className="low-stock-header">Low Stocks</div>
           <img className='low-pic' src={images.low} alt="Low Stock Icon" />
           <div className='stock head'>
             <div className='stock-prop'>Stock</div>
