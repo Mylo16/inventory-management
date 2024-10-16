@@ -41,7 +41,7 @@ function NewItemForm({ onSave, onClose }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Add New Item</h2>
+        <div className="new-item-header">Add New Item</div>
         <form onSubmit={handleSubmit}>
           <label>
             Name:
@@ -56,6 +56,7 @@ function NewItemForm({ onSave, onClose }) {
           <label>
             Type:
             <select
+              className="select"
               name="type"
               value={formData.type}
               onChange={handleChange}

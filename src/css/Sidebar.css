@@ -68,6 +68,7 @@ ul {
     padding-left: 0;
     position: relative;
     padding-bottom: 200px;
+    min-height: 75vh;
   }
   
   .nav {

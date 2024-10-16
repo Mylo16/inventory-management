@@ -73,3 +73,17 @@ body {
   align-items: center;
   width: 200px;
 }
+
+.video-container {
+  width: 50%;
+  margin: auto;
+}
+
+.background-video {
+  width: 100%;
+}
+
+.no-content {
+  color: rgb(14, 14, 70);
+  text-align: center;
+}

@@ -153,8 +153,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,20 +167,23 @@
   background-color: #fff;
   border-radius: 15px;
   padding: 40px;
-  width: 90%;
+  height: 80%;
+  width: 70%;
   max-width: 500px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
-.modal h2 {
-  margin-bottom: 20px;
+.new-item-header {
+  margin-bottom: 10px;
+  color: rgb(13, 13, 61);
+  font-weight: 500;
 }
 
 .modal form label {
   display: block;
-  font-size: 1rem;
-  margin-bottom: 10px;
+  font-size: 15px;
+  margin-bottom: 5px;
   color: #333;
 }
 
@@ -204,11 +207,16 @@
 .modal form input,
 .modal form select {
   width: 92%;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
   border: 2px solid #ccc;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 15px;
+  font-family: 'poppins', sans-serif;
+}
+
+.modal form select.select {
+  width: 95%;
 }
 
 .modal form button[type="submit"] {
@@ -274,13 +282,20 @@
 }
 
 @media (max-width: 768px) {
-  /* .add-item-btn {
-    position: absolute;
-    top: 10%;
-    left: 20%;
-  }
-
-  .card-container {
-    margin-top: 5em;
-  } */
+    .grouped-labels {
+        display: block;
+        gap: 2em;
+      }
+      
+      .grouped-labels label {
+        width: 95%;
+      }
+      
+      .modal form .grouped-labels input {
+        width: 95%;
+      }
+      
+      .modal form .grouped-labels select {
+        width: 100%;
+      }
 }

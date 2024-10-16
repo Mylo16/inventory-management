@@ -35,5 +35,6 @@
     margin-top: 2em;
     font-size: 15px;
     padding: 3px;
+    z-index: 0;
   }
 }
