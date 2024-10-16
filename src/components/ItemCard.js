@@ -27,11 +27,15 @@ function ItemCard({ item, onEditClick, onDeleteClick }) {
       </div>
       <div className="item-info-row">
         <div className="property">Last Bought</div>
-        <div className="value"> {new Date(item.itemBoughtDate).toLocaleDateString()}</div>
+        <div className="value">
+          {item.itemBoughtDate.split("T")[0]}
+        </div>
       </div>
       <div className="item-info-row">
         <div className="property">Last Use</div>
-        <div className="value"> {item.itemUsedDate === '' ? '-' : new Date(item.itemUsedDate).toLocaleDateString()}</div>
+        <div className="value">
+          {item.itemUsedDate === '' ? '-' : item.itemUsedDate.split("T")[0]}
+        </div>
       </div>
       </div>
       
