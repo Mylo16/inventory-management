@@ -1,38 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import { addNewInventory, getInventoryItems, pushLocal } from "../utils/localStorage";
 
-function NewItemForm({ onSave, onClose }) {
-  const [formData, setFormData] = useState({
+function NewItemForm({ onSave, isPurchase }) {
+  const [formData, setFormData] = useState(isPurchase ? {
     name: "",
     type: "consumable",
     itemsBought: 0,
     itemsUsed: 0,
     itemsRemaining: 0,
     itemBoughtDate: "",
-    itemUsedDate: "",
     reorderLevel: 10,
+  }:
+  {
+    name: "",
+    itemUsedDate: "",
+    section: "",
+    person: "",
+    issues: 0,
   });
 
-  const inventoryItems = [
-    { value: 'item1', label: 'Inventory Item 1' },
-    { value: 'item2', label: 'Inventory Item 2' },
-    { value: 'item3', label: 'Inventory Item 3' },
-    { value: 'item4', label: 'Inventory Item 4' },
-  ];
-
+  const [inventoryItems, setInventoryItems] = useState(() => getInventoryItems() || []);
+  const [newForm, setNewForm] = useState(false);
+  const [item, setItem] = useState({ value: "", label: "" });
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const closeModal = () => {
+    setNewForm(false);
+    setItem({ value: "", label: "" });
+  };
+
+  useEffect(() => {
+    // Ensure click event only activates when the form is open
+    if (newForm) {
+      const handleClick = (event) => {
+        if (
+          !event.target.closest(".new-form-ctn") &&
+          !event.target.closest(".new-item-btn")
+        ) {
+          closeModal();
+        }
+      };
+      document.addEventListener("click", handleClick);
+      return () => {
+        document.removeEventListener("click", handleClick);
+      };
+    }
+  }, [newForm]);
 
   const handleInventorySelect = (selectedOption) => {
     setSelectedItem(selectedOption);
-    setFormData((prev) => {
-      return {...prev, name: selectedOption.value}
-    });
+    setFormData((prev) => ({
+      ...prev,
+      name: selectedOption.value,
+    }));
   };
+
+  const handleItemChange = (e) => {
+    const { value } = e.target;
+    setItem({ value, label: value });
+  };
+  
+  const handleNewInventory = (e) => {
+    e.preventDefault();
+    const itemExists = inventoryItems.some((invItem) => invItem.value.toLowerCase() === item.value.toLowerCase());
+  
+    if (itemExists) {
+      alert("This item already exists in the inventory.");
+    } else {
+      const updatedItems = [...inventoryItems, item];
+      setInventoryItems(updatedItems);
+      addNewInventory(updatedItems);
+    }
+    
+    closeModal();
+  };
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
-      let updatedData = { ...prev, [name]: value };
+      const updatedData = { ...prev, [name]: value };
 
       if (name === "itemsBought" || name === "itemsUsed") {
         updatedData.itemsRemaining =
@@ -105,7 +154,25 @@ function NewItemForm({ onSave, onClose }) {
             />
           </label>
           <button type="submit">Add Item</button>
+          <button
+            className="new-item-btn"
+            onClick={() => setNewForm(true)}
+            type="button"
+          >
+            Add New Inventory Item
+          </button>
         </form>
+        {newForm && (
+          <div className="new-form-overlay">
+            <form onSubmit={handleNewInventory} className="new-form-ctn">
+              <label>
+                Item Name:
+                <input required onChange={handleItemChange} value={item.value} />
+              </label>
+              <button type="submit">Create</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

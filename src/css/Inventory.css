@@ -226,7 +226,25 @@
   background-color: #477ab2;
 }
 
-.close-btn {
+.new-form-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #3333334f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-form-ctn {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1em;
+}
+
+/* .close-btn {
   background-color: transparent;
   color: #999;
   border: none;
@@ -247,7 +265,6 @@
   }
 }
 
-/* App.css */
 .delete-btn {
   background-color: red;
   color: white;
@@ -271,6 +288,31 @@
 
 .delete-icon:hover {
   color: darkred;
+} */
+
+.toggle-stn-ctn {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  background-color: #d9d7e7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.purchase-stn,
+.distribution-stn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: rgb(12, 12, 58);
+  font-weight: 500;
+}
+
+.purchase-stn.highlight,
+.distribution-stn.highlight {
+  background-color: rgb(241, 241, 247);
+  -webkit-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
 }
 
 .styled-table {
@@ -283,7 +325,7 @@
 .styled-table th,
 .styled-table td {
   padding: 12px 15px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
 }
 

@@ -7,24 +7,19 @@ import NewItemForm from "./NewItemForm";
 import images from '../utils/images';
 import Modal from './modal';
 import Header from './header';
+import { getInventory, sortInventory, updateInventory } from '../utils/localStorage';
 
 function InventoryList() {
-  const [inventory, setInventory] = useState(() => {
-    // Retrieve inventory from localStorage
-    const storedInventory = localStorage.getItem("inventory");
-    return storedInventory ? JSON.parse(storedInventory) : [];
-  });
+  const [inventory, setInventory] = useState(() => getInventory() || []);
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const [updatedItem, setUpdatedItem] = useState('');
   const [isPurchase, setIsPurchase] = useState(false);
-  const data = [
-    { col1: 'Row 1 Col 1', col2: 'Row 1 Col 2', col3: 'Row 1 Col 3', col4: 'Row 1 Col 4' },
-    { col1: 'Row 2 Col 1', col2: 'Row 2 Col 2', col3: 'Row 2 Col 3', col4: 'Row 2 Col 4' },
-    { col1: 'Row 3 Col 1', col2: 'Row 3 Col 2', col3: 'Row 3 Col 3', col4: 'Row 3 Col 4' },
-  ];
 
+  useEffect(() => {
+    setInventory(sortInventory(inventory));
+  }, []);
 
   const handleSave = (updatedItem) => {
     const updatedInventory = inventory.map((item) =>
@@ -56,59 +51,35 @@ function InventoryList() {
       ...inventory,
       { ...newItem, id: inventory.length + 1, lastUpdated: new Date().toLocaleString() },
     ];
-    setInventory(newInventory);
-    localStorage.setItem("inventory", JSON.stringify(newInventory));
+    setInventory(sortInventory(newInventory));
+    updateInventory(sortInventory(newInventory));
   };
 
   return (
     <div className="App">
       <Header header={'Inventory Overview'}/>
-
-      {/* <div className="add-item-btn" onClick={() => setIsNewItemFormOpen(true)}>
-        <img src={images.add} alt="add" />
-        <div>Add Inventory</div>
-      </div>
-       <div className="card-container">
-         {showNotification && (<Modal item={updatedItem} show={true} quitModal={closeModal}/>)}
-
-         {inventory.length === 0 ? (
-          <div className="no-items">
-            <img src={images.addPic} alt="add-picture"/>
-            <p>Empty: No items added</p>
-          </div>
-        ) : (
-          inventory.map((item) => (
-            <ItemCard 
-              key={item.id} 
-              item={item} 
-              onEditClick={handleEditClick}
-              onDeleteClick={handleDelete}
-            />
-          ))
-        )}
-      </div> */}
       <div className='toggle-stn-ctn'>
         <div onClick={() => setIsPurchase(true)} className={`purchase-stn ${isPurchase ? 'highlight': ''}`}>Purchase</div>
-        <div onClick={() => setIsPurchase(false)} className='distribution-stn'>Distribution</div>
+        <div onClick={() => setIsPurchase(false)} className={`distribution-stn ${!isPurchase ? 'highlight': ''}`}>Distribution</div>
       </div>
       {isPurchase ? (
         <>
           <table className="styled-table">
         <thead>
           <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>Column 3</th>
-            <th>Column 4</th>
+            <th>Date</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Qnty Left</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {inventory.map((item, index) => (
             <tr key={index}>
-              <td>{row.col1}</td>
-              <td>{row.col2}</td>
-              <td>{row.col3}</td>
-              <td>{row.col4}</td>
+              <td>{item.itemBoughtDate.split("T")[0]}</td>
+              <td>{item.name}</td>
+              <td>{item.itemsBought}</td>
+              <td>{item.itemsBought - 0}</td>
             </tr>
           ))}
         </tbody>
@@ -116,6 +87,7 @@ function InventoryList() {
 
       <NewItemForm
         onSave={handleAddNewItem}
+        isPurchase={true}
       />
       </>
       ):(
@@ -123,25 +95,29 @@ function InventoryList() {
         <table className="styled-table">
         <thead>
           <tr>
-            <th>Column A</th>
-            <th>Column B</th>
-            <th>Column C</th>
-            <th>Column D</th>
+            <th>Date</th>
+            <th>Section</th>
+            <th>Person</th>
+            <th>Item</th>
+            <th>Receipts</th>
+            <th>Issues</th>
+            <th>Balance</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {inventory.map((item, index) => (
             <tr key={index}>
-              <td>{row.col1}</td>
-              <td>{row.col2}</td>
-              <td>{row.col3}</td>
-              <td>{row.col4}</td>
+              <td>{item.itemBoughtDate}</td>
+              <td>{item.col2}</td>
+              <td>{item.col3}</td>
+              <td>{item.col4}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <NewItemForm
         onSave={handleDistributeItem}
+        isPurchase={false}
       />
       </>
       )}
