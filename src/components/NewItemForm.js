@@ -2,22 +2,15 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { addNewInventory, getInventoryItems, pushLocal } from "../utils/localStorage";
 
-function NewItemForm({ onSave, isPurchase }) {
-  const [formData, setFormData] = useState(isPurchase ? {
+function NewItemForm({ onSave }) {
+  const [formData, setFormData] = useState({
     name: "",
     type: "consumable",
-    itemsBought: 0,
-    itemsUsed: 0,
+    itemsBought: "",
+    itemsUsed: "",
     itemsRemaining: 0,
     itemBoughtDate: "",
     reorderLevel: 10,
-  }:
-  {
-    name: "",
-    itemUsedDate: "",
-    section: "",
-    person: "",
-    issues: 0,
   });
 
   const [inventoryItems, setInventoryItems] = useState(() => getInventoryItems() || []);
@@ -90,9 +83,19 @@ function NewItemForm({ onSave, isPurchase }) {
 
       if (name === "itemsBought") {
         updatedData.itemBoughtDate = new Date().toISOString();
+        if(value === '' || /^[0-9]*$/.test(value)) {
+          setFormData((prev) => (
+            {...prev, [name]: value}
+          ))
+        }
       }
       if (name === "itemsUsed") {
         updatedData.itemUsedDate = new Date().toISOString();
+        if(value === '' || /^[0-9]*$/.test(value)) {
+          setFormData((prev) => (
+            {...prev, [name]: value}
+          ))
+        }
       }
 
       return updatedData;
@@ -102,6 +105,10 @@ function NewItemForm({ onSave, isPurchase }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
+    setFormData((prev) => ({
+      ...prev, itemsBought: 0, reorderLevel: 0
+    }));
+    setSelectedItem(null);
   };
 
   return (
@@ -115,6 +122,7 @@ function NewItemForm({ onSave, isPurchase }) {
               id="inventory-select"
               value={selectedItem}
               onChange={handleInventorySelect}
+              required
               options={inventoryItems}
               isSearchable
               placeholder="Search for an item..."
@@ -141,6 +149,8 @@ function NewItemForm({ onSave, isPurchase }) {
               value={formData.itemsBought}
               onChange={handleChange}
               required
+              min="0"
+              placeholder="Enter a positive number"
             />
           </label>
           <label>
@@ -151,6 +161,7 @@ function NewItemForm({ onSave, isPurchase }) {
               value={formData.reorderLevel}
               onChange={handleChange}
               required
+              min="0"
             />
           </label>
           <button type="submit">Add Item</button>

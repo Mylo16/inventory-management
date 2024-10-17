@@ -1,103 +1,108 @@
 import React, { useState } from "react";
+import Select from "react-select";
+import { getInventoryItems, sections } from "../utils/localStorage";
 
-function EditFormModal({ item, onSave, onClose }) {
-  const [formData, setFormData] = useState({ ...item });
+function EditFormModal({ onSave }) {
+  const [formData, setFormData] = useState({
+    itemName: "",
+    issues: "",
+    recipient: "",
+    receipts: "",
+    section: "",
+    itemUseDate: "",
+  });
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedInventory, setSelectedInventory] = useState(null);
+  const [sectionItems, setSectionItems] = useState(sections);
+  const [inventoryItems, setInventoryItems] = useState(getInventoryItems() || []);
+
+
+  const handleSectionSelect = (selectedOption) => {
+    setSelectedSection(selectedOption);
+    setFormData((prev) => ({
+      ...prev,
+      section: selectedOption.value,
+    }));
+  };
+
+  const handleInventorySelect = (selectedOption) => {
+    setSelectedInventory(selectedOption);
+    setFormData((prev) => ({
+      ...prev,
+      itemName: selectedOption.value,
+    }));
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      let updatedData = { ...prev, [name]: value };
-
-      // Update the remaining items automatically
-      if (name === "itemsBought" || name === "itemsUsed") {
-        updatedData.itemsRemaining =
-          Number(updatedData.itemsBought) - Number(updatedData.itemsUsed);
-      }
-
-      // Set the date when items are bought or used
-      if (name === "itemsBought") {
-        updatedData.itemBoughtDate = new Date().toISOString();
-      }
-      if (name === "itemsUsed") {
-        updatedData.itemUsedDate = new Date().toISOString();
-      }
-
-      return updatedData;
-    });
+    setFormData((prev) => (
+      { ...prev, [name]: value, itemUseDate: new Date().toISOString() }
+    ));
+    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
+    setFormData((prev) => ({
+      ...prev, issues: "", recipient: ""
+    }));
+    setSelectedSection(null);
+    setSelectedInventory(null);
   };
 
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Edit Item</h2>
+        <h2>Distribution Form</h2>
         <form onSubmit={handleSubmit}>
+          <label htmlFor="inventory-select">
+            Item Name:
+            <Select
+              id="inventory-select"
+              value={selectedInventory}
+              onChange={handleInventorySelect}
+              required
+              options={inventoryItems}
+              isSearchable
+              placeholder="Search for an item..."
+            />
+          </label>
           <label>
-            Name:
+            Issues:
+            <input
+              type="number"
+              name="issues"
+              value={formData.issues}
+              onChange={handleChange}
+              required
+              min="0"
+            />
+          </label>
+          <label htmlFor="inventory-select">
+            Section or Unit:
+            <Select
+              id="section-select"
+              value={selectedSection}
+              onChange={handleSectionSelect}
+              required
+              options={sectionItems}
+              isSearchable
+              placeholder="Search for an item..."
+            />
+          </label>
+          <label>
+            Recipient Name:
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="recipient"
+              value={formData.recipient}
               onChange={handleChange}
               required
             />
           </label>
-          <div className="grouped-labels">
-          <label>
-            Type:
-            <select
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            >
-              <option value="consumable">Consumable</option>
-              <option value="non-consumable">Non-Consumable</option>
-            </select>
-          </label>
-          <label>
-            Items Bought:
-            <input
-              type="number"
-              name="itemsBought"
-              value={formData.itemsBought}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          </div>
-          <div className="grouped-labels">
-          <label>
-            Items Used:
-            <input
-              type="number"
-              name="itemsUsed"
-              value={formData.itemsUsed}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Reorder Level:
-            <input
-              type="number"
-              name="reorderLevel"
-              value={formData.reorderLevel}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          </div>
-          <p>Items Remaining: {formData.itemsRemaining}</p>
           <button type="submit">Save</button>
         </form>
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
       </div>
     </div>
   );

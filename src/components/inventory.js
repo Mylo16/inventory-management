@@ -1,24 +1,27 @@
 // src/components/InventoryList.js
 import React, { useEffect, useState } from 'react';
 import '../css/Inventory.css';
-import ItemCard from "./ItemCard";
 import EditFormModal from "./EditFormModal";
 import NewItemForm from "./NewItemForm";
 import images from '../utils/images';
-import Modal from './modal';
 import Header from './header';
-import { getInventory, sortInventory, updateInventory } from '../utils/localStorage';
+import { addDistributionData, addNewInventory, getDistributionData, getInventory, sortDistributionData, sortInventory, updateInventory } from '../utils/localStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBalance } from '../redux/inventorySlice';
 
 function InventoryList() {
   const [inventory, setInventory] = useState(() => getInventory() || []);
-
+  const [distributionData, setDistributionData] = useState(() => getDistributionData() || []);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const [updatedItem, setUpdatedItem] = useState('');
   const [isPurchase, setIsPurchase] = useState(false);
+  const { balance } = useSelector((state) => state.inventory);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setInventory(sortInventory(inventory));
+    setDistributionData(sortDistributionData(distributionData));
   }, []);
 
   const handleSave = (updatedItem) => {
@@ -42,19 +45,88 @@ function InventoryList() {
   };
 
   const handleDistributeItem = (newItem) => {
+    const existingInventoryIndex = inventory.findIndex(item => item.name === newItem.itemName);
+    const existingItemIndex = distributionData.findIndex(item => item.itemName === newItem.itemName);
+    let distributionItem = {};
+    if (existingItemIndex !== -1) {
+      const updatedDistributionData = distributionData.map((item, index) => {
+        if(index === existingItemIndex) {
+          dispatch(getBalance(Number(item.balance) - Number(newItem.issues)));
+          distributionItem = {
+            ...item,
+            receipts: item.balance,
+            balance,
+            issues: newItem.issues,
+            itemUseDate: new Date().toISOString()
+          }
+          return item;
+        }   
+        else {
+          return item;
+        }
+      });
+      updatedDistributionData.push(distributionItem);
+      const updatedInventory = inventory.map((item) => 
+        item.name === newItem.itemName ? {
+          ...item, balance
+        }
+      : item);
+      console.log(updatedInventory);
+      updateInventory(sortInventory(updatedInventory));
+      setDistributionData(sortDistributionData(updatedDistributionData));
+      addDistributionData(sortDistributionData(updatedDistributionData));
+      window.location.reload();
+    }
+    if (existingInventoryIndex !== -1 && existingItemIndex === -1) {
+      const receipts = inventory[existingInventoryIndex].itemsBought;
+      
+      const newDistributionData = [
+        ...distributionData,
+        { ...newItem, receipts, balance, id: distributionData.length + 1, itemUseDate: new Date().toISOString() },
+      ];
 
+      const updatedInventory = inventory.map((item) => 
+        item.name === newItem.itemName ? {
+          ...item, balance
+        }
+      : item);
+      updateInventory(sortInventory(updatedInventory));
+      setDistributionData(sortDistributionData(newDistributionData));
+      addDistributionData(sortDistributionData(newDistributionData));
+      window.location.reload();
+    }
   }
 
-  // Handle adding a new item
   const handleAddNewItem = (newItem) => {
-    const newInventory = [
-      ...inventory,
-      { ...newItem, id: inventory.length + 1, lastUpdated: new Date().toLocaleString() },
-    ];
-    setInventory(sortInventory(newInventory));
-    updateInventory(sortInventory(newInventory));
+    const existingItemIndex = inventory.findIndex(item => item.name === newItem.name);
+    const existingDistributionDataIndex = distributionData.findIndex(item => item.itemName === newItem.name);
+    
+    if (existingItemIndex !== -1) {
+      const balance = distributionData[existingDistributionDataIndex].balance;
+      const updatedInventory = inventory.map((item, index) =>
+        index === existingItemIndex
+          ? {
+              ...item,
+              itemsBought: Number(item.itemsBought) + Number(newItem.itemsBought),
+              itemBoughtDate: new Date().toISOString(),
+              balance
+            }
+          : item
+      );
+  
+      setInventory(sortInventory(updatedInventory));
+      updateInventory(sortInventory(updatedInventory));
+    } else {
+      const newInventory = [
+        ...inventory,
+        { ...newItem, id: inventory.length + 1, itemBoughtDate: new Date().toISOString() },
+      ];
+      
+      setInventory(sortInventory(newInventory));
+      updateInventory(sortInventory(newInventory));
+    }
   };
-
+  
   return (
     <div className="App">
       <Header header={'Inventory Overview'}/>
@@ -79,7 +151,7 @@ function InventoryList() {
               <td>{item.itemBoughtDate.split("T")[0]}</td>
               <td>{item.name}</td>
               <td>{item.itemsBought}</td>
-              <td>{item.itemsBought - 0}</td>
+              <td>{item.balance || item.itemsBought}</td>
             </tr>
           ))}
         </tbody>
@@ -105,17 +177,20 @@ function InventoryList() {
           </tr>
         </thead>
         <tbody>
-          {inventory.map((item, index) => (
+          {distributionData.map((item, index) => (
             <tr key={index}>
-              <td>{item.itemBoughtDate}</td>
-              <td>{item.col2}</td>
-              <td>{item.col3}</td>
-              <td>{item.col4}</td>
+              <td>{item.itemUseDate.split("T")[0]}</td>
+              <td>{item.section}</td>
+              <td>{item.recipient}</td>
+              <td>{item.itemName}</td>
+              <td>{item.receipts}</td>
+              <td>{item.issues}</td>
+              <td>{item.balance}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <NewItemForm
+      <EditFormModal
         onSave={handleDistributeItem}
         isPurchase={false}
       />
