@@ -7,124 +7,20 @@ import images from '../utils/images';
 import Header from './header';
 import { addDistributionData, addNewInventory, getDistributionData, getInventory, sortDistributionData, sortInventory, updateInventory } from '../utils/localStorage';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBalance } from '../redux/inventorySlice';
+import { addDistribution, addPurchase } from '../redux/inventorySlice';
 
 function InventoryList() {
-  const [inventory, setInventory] = useState(() => getInventory() || []);
-  const [distributionData, setDistributionData] = useState(() => getDistributionData() || []);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const [updatedItem, setUpdatedItem] = useState('');
   const [isPurchase, setIsPurchase] = useState(false);
-  const { balance } = useSelector((state) => state.inventory);
+  const { inventories, inventoriesAtDistribution, purchases, distributions } = useSelector((state) => state.inventory);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setInventory(sortInventory(inventory));
-    setDistributionData(sortDistributionData(distributionData));
-  }, []);
-
-  const handleSave = (updatedItem) => {
-    const updatedInventory = inventory.map((item) =>
-      item.id === updatedItem.id
-        ? { ...updatedItem, lastUpdated: new Date().toLocaleString() }
-        : item
-    );
-    setInventory(updatedInventory);
-    localStorage.setItem("inventory", JSON.stringify(updatedInventory));
-    if(updatedItem.itemsRemaining <= updatedItem.reorderLevel) {
-      setUpdatedItem(updatedItem);
-      setShowNotification(true);
-    }
-  };
-
-  const handleDelete = (itemId) => {
-    const updatedInventory = inventory.filter((item) => item.id !== itemId);
-    setInventory(updatedInventory);
-    localStorage.setItem("inventory", JSON.stringify(updatedInventory));
-  };
-
   const handleDistributeItem = (newItem) => {
-    const existingInventoryIndex = inventory.findIndex(item => item.name === newItem.itemName);
-    const existingItemIndex = distributionData.findIndex(item => item.itemName === newItem.itemName);
-    let distributionItem = {};
-    if (existingItemIndex !== -1) {
-      const updatedDistributionData = distributionData.map((item, index) => {
-        if(index === existingItemIndex) {
-          dispatch(getBalance(Number(item.balance) - Number(newItem.issues)));
-          distributionItem = {
-            ...item,
-            receipts: item.balance,
-            balance,
-            issues: newItem.issues,
-            itemUseDate: new Date().toISOString()
-          }
-          return item;
-        }   
-        else {
-          return item;
-        }
-      });
-      updatedDistributionData.push(distributionItem);
-      const updatedInventory = inventory.map((item) => 
-        item.name === newItem.itemName ? {
-          ...item, balance
-        }
-      : item);
-      console.log(updatedInventory);
-      updateInventory(sortInventory(updatedInventory));
-      setDistributionData(sortDistributionData(updatedDistributionData));
-      addDistributionData(sortDistributionData(updatedDistributionData));
-      window.location.reload();
-    }
-    if (existingInventoryIndex !== -1 && existingItemIndex === -1) {
-      const receipts = inventory[existingInventoryIndex].itemsBought;
-      
-      const newDistributionData = [
-        ...distributionData,
-        { ...newItem, receipts, balance, id: distributionData.length + 1, itemUseDate: new Date().toISOString() },
-      ];
-
-      const updatedInventory = inventory.map((item) => 
-        item.name === newItem.itemName ? {
-          ...item, balance
-        }
-      : item);
-      updateInventory(sortInventory(updatedInventory));
-      setDistributionData(sortDistributionData(newDistributionData));
-      addDistributionData(sortDistributionData(newDistributionData));
-      window.location.reload();
-    }
+    dispatch(addDistribution({ newDistributionItem: newItem }));
+    window.location.reload();
   }
 
-  const handleAddNewItem = (newItem) => {
-    const existingItemIndex = inventory.findIndex(item => item.name === newItem.name);
-    const existingDistributionDataIndex = distributionData.findIndex(item => item.itemName === newItem.name);
-    
-    if (existingItemIndex !== -1) {
-      const balance = distributionData[existingDistributionDataIndex].balance;
-      const updatedInventory = inventory.map((item, index) =>
-        index === existingItemIndex
-          ? {
-              ...item,
-              itemsBought: Number(item.itemsBought) + Number(newItem.itemsBought),
-              itemBoughtDate: new Date().toISOString(),
-              balance
-            }
-          : item
-      );
-  
-      setInventory(sortInventory(updatedInventory));
-      updateInventory(sortInventory(updatedInventory));
-    } else {
-      const newInventory = [
-        ...inventory,
-        { ...newItem, id: inventory.length + 1, itemBoughtDate: new Date().toISOString() },
-      ];
-      
-      setInventory(sortInventory(newInventory));
-      updateInventory(sortInventory(newInventory));
-    }
+  const handleAddNewPurchase = (newItem) => {
+    dispatch(addPurchase({ newItem }));
   };
   
   return (
@@ -146,7 +42,7 @@ function InventoryList() {
           </tr>
         </thead>
         <tbody>
-          {inventory.map((item, index) => (
+          {purchases.map((item, index) => (
             <tr key={index}>
               <td>{item.itemBoughtDate.split("T")[0]}</td>
               <td>{item.name}</td>
@@ -158,7 +54,7 @@ function InventoryList() {
       </table>
 
       <NewItemForm
-        onSave={handleAddNewItem}
+        onSave={handleAddNewPurchase}
         isPurchase={true}
       />
       </>
@@ -177,7 +73,7 @@ function InventoryList() {
           </tr>
         </thead>
         <tbody>
-          {distributionData.map((item, index) => (
+          {distributions.map((item, index) => (
             <tr key={index}>
               <td>{item.itemUseDate.split("T")[0]}</td>
               <td>{item.section}</td>

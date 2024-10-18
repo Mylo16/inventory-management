@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { addNewInventory, getInventoryItems, pushLocal } from "../utils/localStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { addInventory } from "../redux/inventorySlice";
 
 function NewItemForm({ onSave }) {
   const [formData, setFormData] = useState({
@@ -13,10 +15,11 @@ function NewItemForm({ onSave }) {
     reorderLevel: 10,
   });
 
-  const [inventoryItems, setInventoryItems] = useState(() => getInventoryItems() || []);
   const [newForm, setNewForm] = useState(false);
   const [item, setItem] = useState({ value: "", label: "" });
   const [selectedItem, setSelectedItem] = useState(null);
+  const { inventories } = useSelector((state) => state.inventory);
+  const dispatch = useDispatch();
 
   const closeModal = () => {
     setNewForm(false);
@@ -56,16 +59,13 @@ function NewItemForm({ onSave }) {
   
   const handleNewInventory = (e) => {
     e.preventDefault();
-    const itemExists = inventoryItems.some((invItem) => invItem.value.toLowerCase() === item.value.toLowerCase());
+    const itemExists = inventories.some((invItem) => invItem.value.toLowerCase() === item.value.toLowerCase());
   
     if (itemExists) {
       alert("This item already exists in the inventory.");
     } else {
-      const updatedItems = [...inventoryItems, item];
-      setInventoryItems(updatedItems);
-      addNewInventory(updatedItems);
+      dispatch(addInventory(item));
     }
-    
     closeModal();
   };
   
@@ -123,7 +123,7 @@ function NewItemForm({ onSave }) {
               value={selectedItem}
               onChange={handleInventorySelect}
               required
-              options={inventoryItems}
+              options={inventories}
               isSearchable
               placeholder="Search for an item..."
             />

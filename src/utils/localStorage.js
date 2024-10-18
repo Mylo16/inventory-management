@@ -45,7 +45,7 @@ export const sortDistributionData = (distributionData) => {
 
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('squadState');
+    const serializedState = localStorage.getItem('inventoryState');
     if (serializedState === null) {
       return undefined; // State not found, Redux will use default state
     }
@@ -59,7 +59,7 @@ export const loadState = () => {
 export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('squadState', serializedState); // Save Redux state to localStorage
+    localStorage.setItem('inventoryState', serializedState); // Save Redux state to localStorage
   } catch (error) {
     console.error("Could not save state", error);
   }
