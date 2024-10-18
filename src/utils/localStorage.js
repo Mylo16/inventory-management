@@ -1,34 +1,3 @@
-export const sections = [
-  {value: 'Service Support', label: 'Service'},
-  {value: 'Technical Support', label: 'Technical'},
-  {value: 'Instructional Support', label: 'Instructional'},
-  {value: 'Administration Support', label: 'Administration'},
-]
-
-export const addNewInventory = (updatedInventoryItems) => {
-  localStorage.setItem("inventoryItems", JSON.stringify(updatedInventoryItems));
-}
-
-export const getInventoryItems = () => {
-  return JSON.parse(localStorage.getItem("inventoryItems"));
-}
-
-export const updateInventory = (inventory) => {
-  localStorage.setItem("inventory", JSON.stringify(inventory));
-}
-
-export const getInventory = () => {
-  return JSON.parse(localStorage.getItem("inventory"));
-}
-
-export const getDistributionData = () => {
-  return JSON.parse(localStorage.getItem("distributionData"));
-}
-
-export const addDistributionData = (distributionData) => {
-  localStorage.setItem("distributionData", JSON.stringify(distributionData));
-}
-
 export const sortInventory = (inventory) => {
   const sortedInventory = inventory.sort((a, b) => {
     return new Date(b.itemBoughtDate) - new Date(a.itemBoughtDate);

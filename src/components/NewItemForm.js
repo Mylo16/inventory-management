@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { addNewInventory, getInventoryItems, pushLocal } from "../utils/localStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { addInventory } from "../redux/inventorySlice";
 
@@ -10,7 +9,7 @@ function NewItemForm({ onSave }) {
     type: "consumable",
     itemsBought: "",
     itemsUsed: "",
-    itemsRemaining: 0,
+    balance: 0,
     itemBoughtDate: "",
     reorderLevel: 10,
   });
@@ -77,7 +76,7 @@ function NewItemForm({ onSave }) {
       const updatedData = { ...prev, [name]: value };
 
       if (name === "itemsBought" || name === "itemsUsed") {
-        updatedData.itemsRemaining =
+        updatedData.balance =
           Number(updatedData.itemsBought) - Number(updatedData.itemsUsed);
       }
 
@@ -106,7 +105,7 @@ function NewItemForm({ onSave }) {
     e.preventDefault();
     onSave(formData);
     setFormData((prev) => ({
-      ...prev, itemsBought: 0, reorderLevel: 0
+      ...prev, itemsBought: 0, reorderLevel: 10
     }));
     setSelectedItem(null);
   };

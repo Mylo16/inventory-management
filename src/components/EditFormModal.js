@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Select from "react-select";
-import { getInventoryItems, sections } from "../utils/localStorage";
 
 function EditFormModal({ onSave }) {
   const [formData, setFormData] = useState({
@@ -13,9 +13,7 @@ function EditFormModal({ onSave }) {
   });
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedInventory, setSelectedInventory] = useState(null);
-  const [sectionItems, setSectionItems] = useState(sections);
-  const [inventoryItems, setInventoryItems] = useState(getInventoryItems() || []);
-
+  const { inventoriesAtDistribution, sections } = useSelector((state) => state.inventory);
 
   const handleSectionSelect = (selectedOption) => {
     setSelectedSection(selectedOption);
@@ -63,7 +61,7 @@ function EditFormModal({ onSave }) {
               value={selectedInventory}
               onChange={handleInventorySelect}
               required
-              options={inventoryItems}
+              options={inventoriesAtDistribution}
               isSearchable
               placeholder="Search for an item..."
             />
@@ -79,14 +77,14 @@ function EditFormModal({ onSave }) {
               min="0"
             />
           </label>
-          <label htmlFor="inventory-select">
+          <label htmlFor="section-select">
             Section or Unit:
             <Select
               id="section-select"
               value={selectedSection}
               onChange={handleSectionSelect}
               required
-              options={sectionItems}
+              options={sections}
               isSearchable
               placeholder="Search for an item..."
             />

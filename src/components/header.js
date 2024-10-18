@@ -2,23 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../css/Header.css';
 import images from '../utils/images';
 import Modal from './modal';
+import { useSelector } from 'react-redux';
 
 function Header({ header }) {
-  const [inventory, setInventory] = useState(() => {
-    const storedInventory = localStorage.getItem("inventory");
-    return storedInventory ? JSON.parse(storedInventory) : [];
-  });
-
-  const [lowStock, setLowStock] = useState([]);
+  const { purchases } = useSelector((store) => store.inventory);
   const [showLowStock, setShowLowStock] = useState(false);
   const [highlight, setHighlight] = useState(false);
-  const containerRef = useRef(null);
 
   useEffect(() => {
-    const lowStockItems = inventory.filter(item => item.itemsRemaining <= item.reorderLevel);
-    setLowStock(lowStockItems);  // Only set the items that are low in stock
-    setHighlight(lowStockItems.length > 0);  // Highlight notification if any item is low in stock
-  }, [inventory]);
+    const lowStockItems = purchases.filter(item => item.balance <= item.reorderLevel);
+    setHighlight(lowStockItems.length > 0);
+  }, [purchases]);
 
   const closeModal = () => {
     setShowLowStock(false);

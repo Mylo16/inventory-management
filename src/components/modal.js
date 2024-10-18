@@ -1,24 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import images from "../utils/images";
+import { useSelector } from "react-redux";
 
-const Modal = ({item, show, quitModal}) => {
-  const [inventory, setInventory] = useState(() => {
-    // Retrieve inventory from localStorag
-    if(item) return [item];
-    const storedInventory = localStorage.getItem("inventory");
-    return storedInventory ? JSON.parse(storedInventory) : [];
-  });
+const Modal = ({ item, show, quitModal}) => {
 
   const [lowStock, setLowStock] = useState([]);
   const [showLowStock, setShowLowStock] = useState(show);
-  const [highlight, setHighlight] = useState(false);
   const containerRef = useRef(null);
+  const { purchases } = useSelector((state) => state.inventory);
 
   useEffect(() => {
-    const lowStockItems = inventory.filter(item => item.itemsRemaining <= item.reorderLevel);
+    const lowStockItems = item || purchases.filter(item => item.balance <= item.reorderLevel);
     setLowStock(lowStockItems);
-    setHighlight(lowStockItems.length > 0);
-  }, [inventory]);
+  }, [purchases]);
 
   const closeModal = () => {
     setShowLowStock(false);

@@ -18,14 +18,14 @@ function Dashboard() {
     let remaining = 0;
     inventory.forEach((item) => {
       total += Number(item.itemsBought);
-      remaining += Number(item.itemsRemaining);
+      remaining += Number(item.balance);
     });
     setNumberOfInventories(total);
     setRemainingInventories(remaining);
   }, [inventory]);
 
   useEffect(() => {
-    const lowStockItems = inventory.filter(item => item.itemsRemaining <= item.reorderLevel);
+    const lowStockItems = inventory.filter(item => item.balance <= item.reorderLevel);
     setLowStocks(lowStockItems);
   }, [inventory]);
 
@@ -56,7 +56,7 @@ function Dashboard() {
             lowStocks.map((stock, index) => (
               <div className='stock details' key={index}>
                 <div className='stock-prop'>{stock.name}</div>
-                <div className='stock-value'>{stock.itemsRemaining}</div>
+                <div className='stock-value'>{stock.balance}</div>
               </div>
             ))
           ) : (

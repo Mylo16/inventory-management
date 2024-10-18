@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Sidebar.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import images from '../utils/images';
 
 function Sidebar() {
@@ -23,12 +23,6 @@ function Sidebar() {
   };
 
   useEffect(() => {
-    // if (isOpen) {
-    //   document.querySelector('.app-container').style.overflow = "hidden";
-    // } else {
-    //   document.querySelector('.app-container').style.overflow = "auto";
-    // }
-
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);

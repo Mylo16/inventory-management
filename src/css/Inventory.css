@@ -244,52 +244,6 @@
   padding: 1em;
 }
 
-/* .close-btn {
-  background-color: transparent;
-  color: #999;
-  border: none;
-  font-size: 1.5rem;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.delete-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  background-color: darkred;
-}
-
-.delete-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  color: red;
-  font-size: 1.5em;
-}
-
-.delete-icon:hover {
-  color: darkred;
-} */
-
 .toggle-stn-ctn {
   display: flex;
   width: fit-content;
@@ -315,18 +269,62 @@
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
 }
 
-.styled-table {
+.table-ctn {
   width: 80%;
-  margin: 20px auto;
-  border-collapse: collapse;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  white-space: nowrap;
+  overflow-y: hidden;
+  height: 50vh;
+  overflow-x: auto;
+  background-color: blue;
+
 }
+
+.table-sub-ctn {
+  max-width: 100%;
+  background-color: red;
+
+}
+
+.table-header {
+ width: 100%;
+}
+
+.table-body {
+  overflow: scroll;
+  height: 50vh;
+}
+
+.table-sub-body {
+  width: 100%;
+}
+
+.table-row {
+  display: flex;
+}
+
+.table-cell {
+  padding: 12px 15px;
+  width: 100px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  flex: 1;
+
+}
+
+.table-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-row:hover {
+  background-color: #ddd;
+}
+
 
 .styled-table th,
 .styled-table td {
   padding: 12px 15px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
 }
 
 .styled-table th {
@@ -334,13 +332,7 @@
   color: white;
 }
 
-.styled-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
-.styled-table tr:hover {
-  background-color: #ddd;
-}
 
 
 @media (max-width: 768px) {
