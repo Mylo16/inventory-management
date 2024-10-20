@@ -1,0 +1,87 @@
+.generate-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-family: 'poppins', sans-serif;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  background-color: #DF1EFF;
+  color: wheat;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.generate-btn:hover {
+  background-color: rgb(22, 22, 77);
+}
+
+.report-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.report-card {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.report-dates {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: rgb(37, 37, 73);
+}
+
+.date-label {
+  font-weight: normal;
+  color: #666;
+}
+
+.distributions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.distribution-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.item-name {
+  font-weight: bold;
+  color: rgb(37, 37, 73);
+  flex: 1;
+}
+
+.item-info {
+  display: flex;
+  gap: 20px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .report-card {
+    width: 100%;
+  }
+
+  .item-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import '../css/Dashboard.css';
 import images from '../utils/images';
 import Header from './header';
+import { useSelector } from 'react-redux';
 
 function Dashboard() {
-  const [inventory, setInventory] = useState(() => {
-    // Retrieve inventory from localStorage
-    const storedInventory = localStorage.getItem("inventory");
-    return storedInventory ? JSON.parse(storedInventory) : [];
-  });
+  const { purchases } = useSelector((state) => state.inventory);
   const [numberOfInventories, setNumberOfInventories] = useState(0);
   const [remainingInventories, setRemainingInventories] = useState(0);
   const [lowStocks, setLowStocks] = useState([]);
@@ -16,18 +13,18 @@ function Dashboard() {
   useEffect(() => {
     let total = 0;
     let remaining = 0;
-    inventory.forEach((item) => {
+    purchases.forEach((item) => {
       total += Number(item.itemsBought);
       remaining += Number(item.balance);
     });
     setNumberOfInventories(total);
     setRemainingInventories(remaining);
-  }, [inventory]);
+  }, [purchases]);
 
   useEffect(() => {
-    const lowStockItems = inventory.filter(item => item.balance <= item.reorderLevel);
+    const lowStockItems = purchases.filter(item => item.balance <= item.reorderLevel);
     setLowStocks(lowStockItems);
-  }, [inventory]);
+  }, [purchases]);
 
   return (
     <>
@@ -35,12 +32,12 @@ function Dashboard() {
     <div className="dashboard">
       <div className="dashboard-widgets">
         <div className="inventory-widget">
-          <div className='inventory-header'>Total Inventory</div>
+          <div className='inventory-header'>Total Stocks</div>
           <img className='inventory-pic' src={images.inventory} alt="Inventory Icon" />
           <div className='inventory-value'>{numberOfInventories}</div>
         </div>
         <div className="inventory-widget">
-          <div className='inventory-header'>Remaining Inventory</div>
+          <div className='inventory-header'>Remaining Stocks</div>
           <img className='inventory-pic' src={images.inventory} alt="Inventory Icon" />
           <div className='inventory-value'>{remainingInventories}</div>
         </div>

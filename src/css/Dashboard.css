@@ -45,7 +45,7 @@
   align-items: center;
   border-radius: 20px;
   width: 70%;
-  margin: auto;
+  margin: 1em auto;
   padding: 1em;
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);

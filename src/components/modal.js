@@ -46,13 +46,16 @@ const Modal = ({ item, show, quitModal}) => {
           <div className='notification-modal-content'>
             <div><img className='warning' src={images.warning} alt="warning"/></div>
             <div ref={containerRef} className='content-ctn'>
-              <div className='content-sub-ctn'>
-              {lowStock.map((stock, index) => (
-                <div className='stock-warn' key={index}>
-                  {stock.name} is running Low!!
+              {lowStock.length > 0 ? (
+                <div className='content-sub-ctn'>
+                  {lowStock.map((stock, index) => (
+                    <div className='stock-warn' key={index}>
+                      {stock.name} is running Low!!
+                    </div>
+                  ))}
                 </div>
-              ))}
-              </div>
+              ) : (<div>No notification yet</div>)}
+              
             </div>
             <button className="ok-btn" onClick={() => closeModal()}>OK</button>
           </div>

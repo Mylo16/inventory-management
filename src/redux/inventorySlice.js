@@ -9,20 +9,84 @@ const initialState = {
     {value: 'Technical Support', label: 'Technical'},
     {value: 'Instructional Support', label: 'Instructional'},
     {value: 'Administration Support', label: 'Administration'},
+   
   ],
   inventories: [
     {value: 'T-Roll', label: 'T-Roll'},
     {value: 'Water', label: 'Water'},
     {value: 'A4 Sheet', label: 'A4 Sheet'},
+    {value: 'Naphthalene Balls', label: 'Naphthalene Balls'},
+    {value: 'Glazing Door Lock', label: 'Glazing Door Lock'},
+    {value: 'Logitech Pointer(R400)', label: 'Logitech Pointer(R400)'},
+    {value: 'Comb Bind x Acce.', label: 'Comb Bind x Acce.'},
+    {value: 'Marker Board', label: 'Marker Board'},
+    {value: 'Flip Chart(Large)', label: 'Flip Chart(Large)'},
+    {value: 'Marker', label: 'Marker'},
+    {value: 'Air Conditioner', label: 'Air Conditioner'},
+    {value: 'Mop', label: 'Mop'},
+    {value: 'Paper Tissue', label: 'Paper Tissue'},
+    {value: 'Ceiling Brush', label: 'Ceiling Brush'},
+    {value: 'Toilet Brush', label: 'Toilet Brush'},
+    {value: 'Sweeping Brush', label: 'Sweeping Brush'},
+    {value: 'Dust Pan', label: 'Dust Pan'},
+    {value: 'Toilet Rolls', label: 'Toilet Rolls'},
+    {value: 'Dust Bin', label: 'Dust Bin'},
+    {value: 'Office Chair', label: 'Office Chair'},
+    {value: 'Industrial T-Roll', label: 'Industrial T-Roll'},
+    {value: 'Tissue Stand', label: 'Tissue Stand'},
+    {value: 'Floor Wiper', label: 'Floor Wiper'},
+    {value: 'Double Door Cabinet', label: 'Double Door Cabinet'},
+    {value: 'Table', label: 'Table'},
   ],
   inventoriesAtDistribution: [],
   inventoryUpdate: [],
+  sortPurchaseBy: [
+    {value: 'Date', label: 'Date'},
+    {value: 'Item', label: 'Item'},
+    {value: 'Quantity', label: 'Quantity'},
+    {value: 'Quantity Left', label: 'Quantity Left'},
+  ],
+  sortDistributionBy: [
+    {value: 'Date', label: 'Date'},
+    {value: 'Item', label: 'Item'},
+    {value: 'Person', label: 'Person'},
+    {value: 'Issues', label: 'Issues'},
+    {value: 'Section', label: 'Section'},
+  ]
 };
 
 const inventorySlice = createSlice({
   name: 'inventory',
   initialState,
   reducers: {
+    sortPurchases: (state, action) => {
+      const { value } = action.payload;
+      if (value === 'Date') {
+        state.purchases = sortInventory(state.purchases);
+      } else if (value === 'Item') {
+        state.purchases = state.purchases.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (value === 'Quantity') {
+        state.purchases = state.purchases.sort((a, b) => b.itemsBought - a.itemsBought);
+      } else {
+        state.purchases = state.purchases.sort((a, b) => b.balance - a.balance);
+      }
+    },
+
+    sortDistributions: (state, action) => {
+      const { value } = action.payload;
+      if (value === 'Date') {
+        state.distributions = sortDistributionData(state.distributions);
+      } else if (value === 'Item') {
+        state.distributions = state.distributions.sort((a, b) => a.itemName.localeCompare(b.itemName));
+      } else if (value === 'Person') {
+        state.distributions = state.distributions.sort((a, b) => a.recipient.localeCompare(b.recipient));
+      } else if (value === 'Issues') {
+        state.distributions = state.distributions.sort((a, b) => b.issues - a.issues);
+      }else {
+        state.distributions = state.distributions.sort((a, b) => a.section.localeCompare(b.section));
+      }
+    },
+
     addInventory: (state, action) => {
       state.inventories = [...state.inventories, action.payload];
     },
@@ -115,6 +179,6 @@ const inventorySlice = createSlice({
   },
 });
 
-export const { addInventory, addDistribution, addPurchase } = inventorySlice.actions;
+export const { addInventory, sortDistributions, sortPurchases, addDistribution, addPurchase } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

@@ -52,7 +52,7 @@ function EditFormModal({ onSave }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Distribution Form</h2>
+        <div className="new-item-header">Distribution Form</div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="inventory-select">
             Item Name:
@@ -96,6 +96,7 @@ function EditFormModal({ onSave }) {
               name="recipient"
               value={formData.recipient}
               onChange={handleChange}
+              placeholder="Enter recipient's first name"
               required
             />
           </label>

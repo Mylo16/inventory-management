@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { addInventory } from "../redux/inventorySlice";
+import images from "../utils/images";
 
 function NewItemForm({ onSave }) {
   const [formData, setFormData] = useState({
@@ -58,10 +59,19 @@ function NewItemForm({ onSave }) {
   
   const handleNewInventory = (e) => {
     e.preventDefault();
-    const itemExists = inventories.some((invItem) => invItem.value.toLowerCase() === item.value.toLowerCase());
+    let inventoryItem = '';
+    const itemExists = inventories.some((invItem) => {
+      inventoryItem = invItem.value;
+      return invItem.value.toLowerCase() === item.value.toLowerCase();
+    });
   
     if (itemExists) {
-      alert("This item already exists in the inventory.");
+      const audio = new Audio(images.alertSound);
+      audio.play().then(() => {
+        setTimeout(() => {
+      alert(`${inventoryItem} already exists in the inventory.`);
+        }, 200);
+      });
     } else {
       dispatch(addInventory(item));
     }

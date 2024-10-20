@@ -6,146 +6,33 @@
   align-items: center;
 }
 .no-items img {
-  width: 300px;
+  width: 200px;
 }
 
-.card-container {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
+#sort-bar {
+  width: 30%;
+  margin: 1em auto;
 }
 
-.item-card {
-  /* background: linear-gradient(180deg, #9c5bee, #5a9bd4); */
-  border-radius: 15px;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  position: relative;
-  transition: transform 0.3s ease;
-  min-height: 200px;
-  width: 330px;
-  border: 1px solid #ccc;
-  margin: 10px; 
-}
-
-.item-card:hover {
-  transform: translateY(-5px);
-}
-
-.item-card-header {
-  margin-bottom: 10px;
-  font-size: 20px;
-  background-color: rgba(41, 134, 240, 0.932);
-  background-color: #DF1EFF;
+.success-message {
+  position: fixed;
+  bottom: 10%;
+  right: -100%;
   color: wheat;
-  border-radius: 15px 15px 0 0;
-  padding: 16px;
-}
-
-.item-info {
-  color: rgb(17, 17, 92);
-  padding: 0 16px;
-  margin-bottom: 1em;
-}
-
-.item-info-row {
-  display: flex;
-}
-
-.property {
-  width: 200px;
-}
-
-.edit-btn {
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-self: flex-end;
-  margin: 1em;
-  padding: 0.2em;
-  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
-  color: rgb(8, 8, 63);
-  border: none;
-  cursor: pointer;
+  border-radius: 20px 0 0 20px;
+  font-size: 15px;
   font-weight: 500;
-  font-family: 'poppins', sans-serif;
-  border-radius: 5px;
-}
-
-/* Status Tag (like "Consumable", "Non-Consumable") */
-.item-card-header .item-status {
-  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
   padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  background-color: #DF1EFF;
+  -webkit-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
 }
 
-/* Flexbox for Item Info (details) */
-.item-card-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-/* Item Information Text */
-.item-card-info p {
-  font-size: 1rem;
-  margin: 0;
-}
-
-/* Flexbox for Footer */
-.item-card-footer {
-  display: flex;
-  justify-content: flex-end;
-  /* Aligns buttons to the right */
-  gap: 10px;
-  /* Space between buttons */
-}
-
-/* Edit Button */
-.item-card-footer button {
-  background-color: #ff7b7b;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.item-card-footer button:hover {
-  background-color: #ff5252;
-}
-
-/* Add New Item Button */
-.add-item-btn {
-  color: black;
-  border: 1px dashed;
-  padding: 10px 10px;
-  width: 200px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  font-size: 1rem;
-  font-family: 'poppins', sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-item-btn img {
-  width: 30px;
-}
-
-.add-item-btn:hover {
-  background-color: #4e9ef5;
+.success-message.display {
+  right: 0%;
+  transition: 0.5s ease-in-out;
 }
 
 /* Modal Styling (unchanged) */
@@ -164,6 +51,7 @@
   max-width: 500px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: relative;
+  margin: 2em;
 }
 
 .new-item-header {
@@ -207,12 +95,14 @@
   font-family: 'poppins', sans-serif;
 }
 
-.modal form select.select {
+.modal form select.select,
+#inventory-select,
+#section-select {
   width: 95%;
 }
 
 .modal form button[type="submit"] {
-  background-color: #5a9bd4;
+  background-color: #DF1EFF;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -223,7 +113,7 @@
 }
 
 .modal form button[type="submit"]:hover {
-  background-color: #477ab2;
+  background-color: #DF1EFF;
 }
 
 .new-form-overlay {
@@ -269,54 +159,92 @@
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
 }
 
-.table-ctn {
-  width: 80%;
-  margin: auto;
-  white-space: nowrap;
-  overflow-y: hidden;
-  height: 50vh;
-  overflow-x: auto;
-  background-color: blue;
+.table-container {
+    width: 80%;
+    height: 50vh;
+    overflow: hidden;
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+  }
 
-}
+  .table-container .table-header {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: #49e951;
+    color: rgb(17, 17, 70);
+    font-size: 16px;
+  }
 
-.table-sub-ctn {
-  max-width: 100%;
-  background-color: red;
+  th {
+    font-weight: 500;
+  }
 
-}
+  .table-body {
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+    height: 100%;
+  }
 
-.table-header {
- width: 100%;
-}
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+  }
 
-.table-body {
-  overflow: scroll;
-  height: 50vh;
-}
+  th, td {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #33333375;
+    width: 60px;
+  }
 
-.table-sub-body {
-  width: 100%;
-}
+  td {
+    color: rgb(16, 16, 66);
+  }
 
-.table-row {
-  display: flex;
-}
+  th.stn-data,
+  td.stn-data {
+    width: 160px;
+  }
 
-.table-cell {
-  padding: 12px 15px;
-  width: 100px;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-  flex: 1;
+  th.item,
+  td.item {
+    width: 120px;
+  }
 
-}
+  th.table-date,
+  td.table-date,
+  th.person,
+  td.person {
+    width: 90px;
+  }
 
-.table-row:nth-child(even) {
+  .table-header::-webkit-scrollbar {
+    height: 10px;
+    background-color: white;
+  }
+
+  .table-header::-webkit-scrollbar-thumb,
+  .table-body::-webkit-scrollbar-thumb {
+    background-color: rgb(104, 97, 97);
+    border-radius: 20px;
+  }
+
+  .table-body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+
+
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.table-row:hover {
+.table-body tr:hover {
   background-color: #ddd;
 }
 
@@ -331,9 +259,6 @@
   background-color: #4CAF50;
   color: white;
 }
-
-
-
 
 @media (max-width: 768px) {
     .grouped-labels {
@@ -351,5 +276,10 @@
       
       .modal form .grouped-labels select {
         width: 100%;
+      }
+
+      th.stn-data,
+      td.stn-data {
+        width: 100px;
       }
 }

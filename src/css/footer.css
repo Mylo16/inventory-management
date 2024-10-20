@@ -31,7 +31,7 @@
 @media (max-width: 768px) {
   .footer {
     position: absolute;
-    width: 100%;
+    width: 99%;
     margin-top: 2em;
     font-size: 15px;
     padding: 3px;
