@@ -1,3 +1,10 @@
+:root {
+  --primary-bg: rgb(1, 102, 1);
+  --secondary-bg: #f4511e;
+  --hover-bg: #cccccc41;
+  --accent-bg: rgba(0, 0, 0, 0.1);
+}
+
 .dashboard {
   width: 80%;
   margin: auto;
@@ -17,6 +24,7 @@
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.377);
+  background-color: var(--hover-bg);
 }
 
 .inventory-widget img {
@@ -26,7 +34,7 @@
 .low-pic {
   width: 300px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
+  background: var(--accent-bg);
 }
 
 .inventory-header,
@@ -36,6 +44,7 @@
 
 .inventory-value {
   font-size: 3rem;
+  color: var(--primary-bg);
 }
 
 .low-stock-widget {
@@ -50,6 +59,7 @@
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.336);
+  background-color: var(--hover-bg);
 }
 
 .stock {
@@ -76,9 +86,8 @@
 }
 
 .stock.head {
-  background-color: rgb(50, 50, 204);
-  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
-  color: rgb(20, 20, 85);
+  background: var(--accent-bg);
+  color: rgb(14, 14, 68);
   justify-content: center;
 }
 
@@ -116,6 +125,5 @@
 
   .dashboard-header {
     text-align: center;
-    color: #190c47;
   }
 }

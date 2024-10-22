@@ -6,7 +6,7 @@ import low from '../asset/low-removebg-preview.png';
 import notification from '../asset/notification.png';
 import warning from '../asset/warning.png';
 import noData from '../asset/No Data.mp4';
-import logo from '../asset/logo.png';
+import logo from '../asset/logo1.png';
 import alertSound from '../asset/notification.mp3';
 import successSound from '../asset/success.mp3';
 

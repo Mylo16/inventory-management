@@ -1,3 +1,9 @@
+:root {
+  --primary-bg: rgb(1, 102, 1);
+  --secondary-bg: #f4511e;
+  --hover-bg: #cccccc41;
+}
+
 
 li {
   list-style: none;
@@ -30,7 +36,8 @@ ul {
     height: 100vh;
     left: 0;
     /* background: rgb(50, 50, 204); */
-    background: #DF1EFF;
+    /* background: #DF1EFF; */
+    background-color: var(--primary-bg);
     width: 250px;
     z-index: 999;
   }
@@ -48,7 +55,9 @@ ul {
   }
 
   .side-link.active {
-    background-color: rgb(10, 10, 66);
+    /* background-color: rgb(10, 10, 66); */
+    background-color: var(--secondary-bg);
+    background-color: rgb(2, 75, 2);
   }
 
 /* Trigram for mobile */
@@ -67,7 +76,8 @@ ul {
 }
 
 .logo {
-  background-color: white;
+  background-color: var(--hover-bg);
+  background-color: rgb(3, 83, 3);
   padding: 0 0.5em;
 }
 
@@ -109,7 +119,7 @@ ul {
   }
 
   .nav.bg {
-    background-color: #DF1EFF;
+    background-color: var(--primary-bg);
     position: fixed;
   }
   
@@ -202,14 +212,14 @@ ul {
     top: 50px;
     height: 100vh;
     left: 53%;
-    background: #DF1EFF;
+    background: var(--primary-bg);
     width: 50%;
     z-index: 999;
     transition: transform 0.3s ease;
   }
   
   .links a {
-    color: white;
+    color: wheat;
     text-decoration: none;
     padding: 0.5rem 1rem;
     display: block;
@@ -217,6 +227,6 @@ ul {
   }
   
   .side-link:hover {
-    background: #ccc;
+    background: var(--hover-bg);
   }  
 }

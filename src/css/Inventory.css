@@ -1,3 +1,9 @@
+:root {
+  --primary-bg: rgb(1, 102, 1);
+  --secondary-bg: #f4511e;
+  --hover-bg: #cccccc41;
+}
+
 .no-items {
   width: fit-content;
   margin: auto;
@@ -24,7 +30,7 @@
   font-weight: 500;
   z-index: 10;
   padding: 5px 10px;
-  background-color: #DF1EFF;
+  background-color: var(--primary-bg);
   -webkit-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
@@ -52,6 +58,12 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: relative;
   margin: 2em;
+}
+
+.new-item-btn {
+  margin-left: 1em;
+  padding: 5px 10px;
+  font-family: 'poppins', sans-serif;
 }
 
 .new-item-header {
@@ -102,10 +114,11 @@
 }
 
 .modal form button[type="submit"] {
-  background-color: #DF1EFF;
-  color: white;
+  background-color: var(--primary-bg);
+  color: wheat;
+  font-family: 'poppins', sans-serif;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 50px;
   font-size: 1rem;
   cursor: pointer;
@@ -113,19 +126,7 @@
 }
 
 .modal form button[type="submit"]:hover {
-  background-color: #DF1EFF;
-}
-
-.new-form-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: #3333334f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--secondary-bg);
 }
 
 .new-form-ctn {
@@ -166,15 +167,20 @@
     margin: 2em auto;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    -webkit-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.377);
   }
 
   .table-container .table-header {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    background-color: #49e951;
-    color: rgb(17, 17, 70);
+    background-color: var(--primary-bg);
+    color: wheat;
     font-size: 16px;
+    
   }
 
   th {
@@ -241,7 +247,7 @@
 
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--hover-bg);
 }
 
 .table-body tr:hover {

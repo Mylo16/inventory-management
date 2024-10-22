@@ -1,3 +1,11 @@
+:root {
+  --primary-bg: rgb(1, 102, 1);
+  --secondary-bg: #f4511e;
+  --hover-bg: #cccccc41;
+  --accent-bg: rgba(0, 0, 0, 0.1);
+  --btn-hover: rgb(15, 145, 15);
+}
+
 .generate-btn {
   border: none;
   border-radius: 10px;
@@ -7,14 +15,20 @@
   display: flex;
   justify-content: center;
   margin: auto;
-  background-color: #DF1EFF;
+  background-color: var(--primary-bg);
   color: wheat;
   transition: 0.3s;
   cursor: pointer;
 }
 
 .generate-btn:hover {
-  background-color: rgb(22, 22, 77);
+  background-color: var(--secondary-bg);
+  background-color: rgb(15, 145, 15);
+}
+
+.no-content {
+  text-align: center;
+  color: var(--primary-bg);
 }
 
 .report-container {
@@ -39,7 +53,7 @@
   font-size: 1.1em;
   font-weight: bold;
   margin-bottom: 12px;
-  color: rgb(37, 37, 73);
+  color: var(--primary-bg);
 }
 
 .date-label {
@@ -65,7 +79,7 @@
 
 .item-name {
   font-weight: bold;
-  color: rgb(37, 37, 73);
+  color: var(--primary-bg);
   flex: 1;
 }
 

@@ -39,7 +39,6 @@ const initialState = {
     {value: 'Table', label: 'Table'},
   ],
   inventoriesAtDistribution: [],
-  inventoryUpdate: [],
   sortPurchaseBy: [
     {value: 'Date', label: 'Date'},
     {value: 'Item', label: 'Item'},
@@ -100,17 +99,32 @@ const inventorySlice = createSlice({
           let updatedPurchaseItem = {
             ...purchaseItem,
             reorderLevel: newItem.reorderLevel,
-            itemsBought: Number(purchaseItem.balance) + Number(newItem.itemsBought),
+            itemsBought: Number(purchaseItem.itemsBought) + Number(newItem.itemsBought),
             itemBoughtDate: new Date().toISOString(),
             balance: Number(purchaseItem.balance) + Number(newItem.itemsBought)
           };
-          state.inventoryUpdate = state.inventoryUpdate.filter((item) => item.name !== purchaseItem.name);
-          state.inventoryUpdate = [...state.inventoryUpdate, updatedPurchaseItem];
+          
+          let countLimit = 0;
+          state.distributions = state.distributions.map((item) => {
+            if (item.itemName === newItem.name && countLimit === 0) {
+              countLimit += 1;
+              return {
+                ...item,
+                receipts: updatedPurchaseItem.itemsBought,
+                balance: updatedPurchaseItem.balance,
+              }
+              
+            } else {
+              return item;
+            }
+          });
           return updatedPurchaseItem;
         }
         return purchaseItem;
-      })
+      });
+
       state.purchases = sortInventory(updatedPurchases);
+
       } else {
         const updatedPurchases = [
           ...state.purchases,
@@ -120,13 +134,14 @@ const inventorySlice = createSlice({
         state.inventoriesAtDistribution = [...state.inventoriesAtDistribution, {value: newItem.name, label: newItem.name}];
       }
     },
+
     addDistribution: (state, action) => {
       const { newDistributionItem } = action.payload;
       const existingDistributionItemIndex = state.distributions.findIndex(item => item.itemName === newDistributionItem.itemName);
       const existingPurchaseItemIndex = state.purchases.findIndex(item => item.name === newDistributionItem.itemName);
 
       let updatedDistributionItem = {};
-      if(existingDistributionItemIndex !== -1 && state.inventoryUpdate.length === 0) {
+      if(existingDistributionItemIndex !== -1) {
         updatedDistributionItem = {
           ...newDistributionItem,
           receipts: state.distributions[existingDistributionItemIndex].balance,
@@ -134,30 +149,8 @@ const inventorySlice = createSlice({
           itemUseDate: new Date().toISOString()
         }
 
-      } else if (existingDistributionItemIndex !== -1 && state.inventoryUpdate.length > 0) {
-        const inventoryUpdateExist = state.inventoryUpdate.some((item) => item.name === newDistributionItem.itemName);
-        if (inventoryUpdateExist) {
-          const existingItemIndex = state.inventoryUpdate.findIndex(item => item.name === newDistributionItem.itemName);
-          updatedDistributionItem = {
-            ...newDistributionItem,
-            receipts: state.inventoryUpdate[existingItemIndex].itemsBought,
-            balance: Number(state.inventoryUpdate[existingItemIndex].itemsBought) - Number(newDistributionItem.issues),
-            itemUseDate: new Date().toISOString()
-          }
-          state.inventoryUpdate = state.inventoryUpdate.filter((_, i) => i !== existingItemIndex);
-
-        } else {
-          updatedDistributionItem = {
-            ...newDistributionItem,
-            receipts: state.distributions[existingDistributionItemIndex].balance,
-            balance: Number(state.distributions[existingDistributionItemIndex].balance) - Number(newDistributionItem.issues),
-            itemUseDate: new Date().toISOString()
-          }
-        }
-      
       } else if (existingDistributionItemIndex === -1) {
         const receipts = state.purchases[existingPurchaseItemIndex].itemsBought;
-        const inventoryUpdateExist = state.inventoryUpdate.some((item) => item.name === newDistributionItem.itemName);
         updatedDistributionItem = {
           ...newDistributionItem,
           receipts,
@@ -165,10 +158,7 @@ const inventorySlice = createSlice({
           id: state.distributions.length + 1,
           itemUseDate: new Date().toISOString()
         }
-        if (inventoryUpdateExist) {
-          const existingItemIndex = state.inventoryUpdate.findIndex(item => item.name === newDistributionItem.itemName);
-          state.inventoryUpdate = state.inventoryUpdate.filter((_, i) => i !== existingItemIndex);
-        }
+       
       }
       // Update total items and remaining items logic
       const updatedPurchases = state.purchases.map(purchase => {

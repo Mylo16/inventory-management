@@ -1,5 +1,12 @@
+:root {
+  --primary-bg: rgb(1, 102, 1);
+  --secondary-bg: #f4511e;
+  --hover-bg: #cccccc41;
+  --accent-bg: rgba(0, 0, 0, 0.1);
+  --bold-text: rgba(156, 103, 4, 0.603);
+}
+
 .header {
-  color: rgb(22, 22, 78);
   margin-top: 1em;
   display: flex;
   align-items: center;
@@ -9,9 +16,12 @@
 
 .header-title {
   margin-left: 1em;
-  background: linear-gradient(90deg, #DF1EFF -28.65%, #FFC93E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* color: rgb(16, 16, 63); */
+  color: wheat;
+  background-color: var(--primary-bg);
+  width: 100%;
+  padding-left: 1em;
+  border-radius: 15px;
 }
 
 .notification {
