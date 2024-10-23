@@ -1,9 +1,9 @@
 :root {
-  --primary-bg: rgb(1, 102, 1);
-  --secondary-bg: #f4511e;
+  --primary-bg: #21263c;
+  --secondary-bg: #408dfb;
   --hover-bg: #cccccc41;
+  --accent-bg: rgba(0, 0, 0, 0.1);
 }
-
 
 li {
   list-style: none;
@@ -35,15 +35,13 @@ ul {
     top: 0;
     height: 100vh;
     left: 0;
-    /* background: rgb(50, 50, 204); */
-    /* background: #DF1EFF; */
     background-color: var(--primary-bg);
     width: 250px;
     z-index: 999;
   }
   
   .links a {
-    color: white;
+    color: wheat;
     text-decoration: none;
     padding: 0.5rem 1rem;
     display: block;
@@ -57,7 +55,7 @@ ul {
   .side-link.active {
     /* background-color: rgb(10, 10, 66); */
     background-color: var(--secondary-bg);
-    background-color: rgb(2, 75, 2);
+    /* background-color: rgb(2, 75, 2); */
   }
 
 /* Trigram for mobile */
@@ -77,7 +75,7 @@ ul {
 
 .logo {
   background-color: var(--hover-bg);
-  background-color: rgb(3, 83, 3);
+  background-color: rgb(8, 3, 83);
   padding: 0 0.5em;
 }
 

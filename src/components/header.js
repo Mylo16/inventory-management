@@ -20,7 +20,7 @@ function Header({ header }) {
 
   return (
     <header className="header">
-      <h1 className='header-title'>{header}</h1>
+      <div className='header-title'>{header}</div>
       <div onClick={() => {setShowLowStock(!showLowStock); setHighlight(false)}} className={`notification ${highlight ? 'highlight':''}`}>
         <img src={images.notification} alt='notification-bell'/>
       </div>
