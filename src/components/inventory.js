@@ -105,7 +105,7 @@ function InventoryList() {
           />
         <div className="table-container">
         <div ref={tableHeaderRef} onScroll={() => syncScroll(tableHeaderRef, tableBodyRef)} className='table-header'>
-
+        <img className='table-banner1' src={images.tableBanner} alt='table-banner'/>
         <table>
         <thead>
           <tr>
@@ -153,6 +153,7 @@ function InventoryList() {
           />
         <div className="table-container">
   <div ref={tableHeaderRef} onScroll={() => syncScroll(tableHeaderRef, tableBodyRef)} className='table-header'>
+    <img className='table-banner1' src={images.tableBanner} alt='table-banner'/>
   <table>
     <thead>
       <tr>

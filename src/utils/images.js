@@ -9,10 +9,12 @@ import noData from '../asset/No Data.mp4';
 import logo from '../asset/logo1.png';
 import alertSound from '../asset/notification.mp3';
 import successSound from '../asset/success.mp3';
+import tableBanner from '../asset/table-banner.png';
 
 const images = {
   deleteBtn,
   logo,
+  tableBanner,
   successSound,
   alertSound,
   warning,
