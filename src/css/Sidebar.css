@@ -106,7 +106,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 0, 0, 0.096);
+    background-color: rgba(9, 9, 58, 0.342);
     color: white;
     padding: 1.5rem 0;
     width: 100%;

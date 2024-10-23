@@ -66,6 +66,7 @@
 @media (max-width: 768px) {
   .header {
     margin-top: 4em;
+    background-color: transparent;
   }
 
   .header-title {
@@ -77,5 +78,6 @@
     top: 5px;
     right: 60px;
     z-index: 999;
+    margin-right: 0;
   }
 }
