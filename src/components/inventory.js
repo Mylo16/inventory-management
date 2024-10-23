@@ -169,7 +169,7 @@ function InventoryList() {
   </div>
   <div ref={tableBodyRef} onScroll={() => syncScroll(tableBodyRef, tableHeaderRef)} className='table-body'>
     <table>
-    <tbody className="table-body">
+    <tbody>
       {distributions.length > 0 ? (
         <>
         {distributions.map((item, index) => (

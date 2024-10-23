@@ -1,30 +1,35 @@
 :root {
-  --primary-bg: rgb(1, 102, 1);
-  --secondary-bg: #f4511e;
+  --primary-bg: #21263c;
+  --secondary-bg: #408dfb;
   --hover-bg: #cccccc41;
   --accent-bg: rgba(0, 0, 0, 0.1);
+  --yellow-bg: #fff8ee;
+
 }
 
 .dashboard {
   width: 80%;
   margin: auto;
 }
+
 .dashboard-widgets {
   display: flex;
   gap: 5%;
   margin-bottom: 1em;
 }
+
 .inventory-widget {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1em;
+  margin-top: 3em;
   border-radius: 20px;
   width: 47.5%;
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.377);
-  background-color: var(--hover-bg);
+  background-color: var(--yellow-bg);
 }
 
 .inventory-widget img {
@@ -59,7 +64,7 @@
   -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.336);
-  background-color: var(--hover-bg);
+  background-color: var(--yellow-bg);
 }
 
 .stock {

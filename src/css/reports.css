@@ -1,9 +1,9 @@
 :root {
-  --primary-bg: rgb(1, 102, 1);
-  --secondary-bg: #f4511e;
+  --primary-bg: #21263c;
+  --secondary-bg: #408dfb;
   --hover-bg: #cccccc41;
   --accent-bg: rgba(0, 0, 0, 0.1);
-  --btn-hover: rgb(15, 145, 15);
+  --bold-text: rgba(156, 103, 4, 0.603);
 }
 
 .generate-btn {

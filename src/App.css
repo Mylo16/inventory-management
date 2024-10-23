@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,300&display=swap');
 
 :root {
-  --primary-bg: rgb(1, 102, 1);
-  --secondary-bg: #f4511e;
+  --primary-bg: #21263c;
+  --secondary-bg: #408dfb;
   --hover-bg: #cccccc41;
   --accent-bg: rgba(0, 0, 0, 0.1);
 }
+
 
 body {
   margin: 0;
@@ -14,7 +15,8 @@ body {
   font-family: 'Poppins', sans-serif;
   width: 100%;
   background-color: var(--hover-bg);
-  background-color: rgb(235, 248, 235);
+  background-color: rgb(235, 235, 248);
+  background-image: url('../src/asset/body-bg2.jpg');
 }
 
 .notification-modal {
