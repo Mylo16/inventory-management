@@ -94,7 +94,7 @@ $ npm install
 Clone this repository to your desired folder:
 ```
 cd my folder
-git clone  https://github.com/Mylo16/Inventory-Management.git
+git clone  https://github.com/Mylo16/inventory-management.git
 ```
 
 ## Author <a name="author"></a>
